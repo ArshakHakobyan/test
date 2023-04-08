@@ -16,13 +16,7 @@ class WalletPage extends StatefulWidget {
 }
 
 class _WalletPageState extends State<WalletPage> {
-  bool isVisible = true;
   late DateTime now;
-  void visibilityToggle() {
-    setState(() {
-      isVisible = !isVisible;
-    });
-  }
 
   void toNotifications({String? choosePage}) {
     final navigator = Navigator.of(context);

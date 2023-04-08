@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:telcell_copy/widgets/balance_visibility.dart';
 import 'package:telcell_copy/widgets/credit_cards.dart';
+import '../widgets/db.dart';
 import 'add_credit_card.dart';
 
 class CardsPage extends StatefulWidget {
@@ -15,45 +16,65 @@ class CardsPage extends StatefulWidget {
 }
 
 class CardsPageState extends State<CardsPage> {
-  //List returnedData = await Navigator.push(context, MaterialPageRoute(builder: AddCard()));
-//data from nav page
-  List? returnedData;
-  void addCard() {
-    if (returnedData != null) {
-      creditCards.add(CreditCards(
-        cardHolder: returnedData![1], //Name of Cardholder
-        cardNumber: int.tryParse(returnedData![0])!, //Card Number
-        color: CardColors.blue,
-        type: CardTypes.visa,
-        bankName: "ID Bank",
-        year: int.tryParse(returnedData![2])!,
-        month: 11,
-      ));
-    } else {
-      return;
+  void getDataFromDatabase() async {
+    final List<Map> cards =
+        await DatabaseHelper.instance.readDataFromDatabase();
+    for (Map item in cards) {
+      addCard(
+        cardNumber: item['card_number'],
+        cardHolder: item['card_holder'],
+        expirationDate: item['expiration_date'],
+      );
     }
+
+    setState(() {});
+  }
+
+  List? returnedData;
+  void addCard({
+    required int cardNumber,
+    required String cardHolder,
+    required int expirationDate,
+  }) {
+    creditCards.add(CreditCards(
+      cardHolder: cardHolder, //Name of Cardholder
+      cardNumber: cardNumber, //Card Number
+      color: CardColors.blue,
+      type: CardTypes.visa,
+      bankName: "ID Bank",
+      year: expirationDate,
+      month: 11,
+    ));
   }
 
   List<CreditCards> creditCards = [
-    // const CreditCards(
-    //   cardHolder: 'Hayk Hakobyan',
-    //   cardNumber: 2424242454546565,
-    //   color: CardColors.green,
-    //   type: CardTypes.visa,
-    //   bankName: "ID Bank",
-    //   year: 2025,
-    //   month: 12,
-    // ),
-    // const CreditCards(
-    //   cardHolder: 'Hayk Hakobyan',
-    //   cardNumber: 2424242454546565,
-    //   color: CardColors.blue,
-    //   type: CardTypes.visa,
-    //   bankName: "ID Bank",
-    //   year: 2025,
-    //   month: 11,
-    // )
+    const CreditCards(
+      cardHolder: 'Hayk Hakobyan',
+      cardNumber: 2424242454546565,
+      color: CardColors.green,
+      type: CardTypes.visa,
+      bankName: "ID Bank",
+      year: 2025,
+      month: 12,
+    ),
+    const CreditCards(
+      cardHolder: 'Hayk Hakobyan',
+      cardNumber: 2424242454546565,
+      color: CardColors.blue,
+      type: CardTypes.visa,
+      bankName: "ID Bank",
+      year: 2025,
+      month: 11,
+    )
   ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    getDataFromDatabase();
+    //
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +150,7 @@ class CardsPageState extends State<CardsPage> {
                     );
 
                     setState(() {
-                      addCard();
+                      //addCard();
                     });
                   },
                   style: ElevatedButton.styleFrom(

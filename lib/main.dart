@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:telcell_copy/pages/add_credit_card.dart';
 import 'pages/home_page.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 

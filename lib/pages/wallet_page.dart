@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:telcell_copy/widgets/balance_visibility.dart';
+
 import 'search_page.dart';
-import '../widgets_containers/first_page_container.dart';
-import '../widgets_containers/first_page_container2.dart';
+import '../widgets/first_page_container.dart';
+import '../widgets/first_page_container2.dart';
 import 'notifications.dart';
+import 'package:telcell_copy/widgets/icon_images.dart';
 
 class WalletPage extends StatefulWidget {
   const WalletPage({super.key});
@@ -100,14 +103,7 @@ class _WalletPageState extends State<WalletPage> {
                               color: Color.fromRGBO(248, 192, 162, 1),
                               fontSize: 13),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            isVisible
-                                ? ShowMoneyField(onPressed: visibilityToggle)
-                                : HiddenMoneyField(onPressed: visibilityToggle),
-                          ],
-                        ),
+                        const BalanceVisibility(),
 
                         //unlocked ballance row
 
@@ -150,61 +146,60 @@ class _WalletPageState extends State<WalletPage> {
                 Positioned(
                   width: 380, //for scroll view
                   bottom: 0,
+                  //
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const SizedBox(width: 12),
                         FirstPageContainer(
-                            image: Image.network(
-                          'https://github.com/ArshakHakobyan/Pics/blob/main/Untitled.png?raw=true',
+                            image: Image(
+                          image: IconImages().advertisingImage,
                         )),
-                        const SizedBox(width: 10),
                         FirstPageContainer(
-                            image: Image.network(
-                                'https://github.com/ArshakHakobyan/Pics/blob/main/Untitled1.png?raw=true')),
-                        const SizedBox(width: 12),
-                        FirstPageContainer(
-                            image: Image.network(
-                                'https://github.com/ArshakHakobyan/Pics/blob/main/Untitled2.png?raw=true')),
-                        const SizedBox(width: 10),
-                        FirstPageContainer(
-                            image: Image.network(
-                                'https://github.com/ArshakHakobyan/Pics/blob/main/Untitled3.png?raw=true')),
-                        const SizedBox(width: 12),
-                        FirstPageContainer(
-                            image: Image.network(
-                          'https://github.com/ArshakHakobyan/Pics/blob/main/Untitled4.png?raw=true',
+                            image: Image(
+                          image: IconImages().advertisingImage1,
                         )),
-                        const SizedBox(width: 10),
                         FirstPageContainer(
-                            image: Image.network(
-                                'https://github.com/ArshakHakobyan/Pics/blob/main/Untitled5.png?raw=true')),
-                        const SizedBox(width: 12),
+                            image: Image(
+                          image: IconImages().advertisingImage2,
+                        )),
                         FirstPageContainer(
-                            image: Image.network(
-                                'https://github.com/ArshakHakobyan/Pics/blob/main/Untitled6.png?raw=true')),
-                        const SizedBox(width: 10),
+                            image: Image(
+                          image: IconImages().advertisingImage3,
+                        )),
                         FirstPageContainer(
-                            image: Image.network(
-                                'https://github.com/ArshakHakobyan/Pics/blob/main/Untitled7.png?raw=true')),
-                        const SizedBox(width: 12),
+                            image: Image(
+                          image: IconImages().advertisingImage4,
+                        )),
                         FirstPageContainer(
-                            image: Image.network(
-                                'https://github.com/ArshakHakobyan/Pics/blob/main/Untitled8.png?raw=true')),
-                        const SizedBox(width: 10),
+                            image: Image(
+                          image: IconImages().advertisingImage5,
+                        )),
                         FirstPageContainer(
-                            image: Image.network(
-                                'https://github.com/ArshakHakobyan/Pics/blob/main/Untitled9.png?raw=true')),
-                        const SizedBox(width: 12),
+                            image: Image(
+                          image: IconImages().advertisingImage6,
+                        )),
                         FirstPageContainer(
-                            image: Image.network(
-                                'https://github.com/ArshakHakobyan/Pics/blob/main/Untitled10.png?raw=true')),
-                        const SizedBox(width: 10),
+                            image: Image(
+                          image: IconImages().advertisingImage7,
+                        )),
                         FirstPageContainer(
-                            image: Image.network(
-                                'https://github.com/ArshakHakobyan/Pics/blob/main/Untitled11.png?raw=true')),
+                            image: Image(
+                          image: IconImages().advertisingImage8,
+                        )),
+                        FirstPageContainer(
+                            image: Image(
+                          image: IconImages().advertisingImage9,
+                        )),
+                        FirstPageContainer(
+                            image: Image(
+                          image: IconImages().advertisingImage10,
+                        )),
+                        FirstPageContainer(
+                            image: Image(
+                          image: IconImages().advertisingImage11,
+                        )),
                       ],
                     ),
                   ),
@@ -217,47 +212,36 @@ class _WalletPageState extends State<WalletPage> {
               style: TextStyle(fontSize: 20),
             ),
             const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Wrap(
+              runSpacing: 10,
+              spacing: 10,
               children: [
-                //SizedBox(width: 15),
                 WalletContainer(
-                  image: Image.network(
-                      'https://github.com/ArshakHakobyan/Pics/blob/main/Arrow1.png?raw=true'),
-                ),
-                const SizedBox(width: 10),
+                    image: Image(
+                  image: IconImages().iconImage,
+                )),
                 WalletContainer(
-                  image: Image.network(
-                      'https://github.com/ArshakHakobyan/Pics/blob/main/arrow2.png?raw=true'),
-                ),
-                const SizedBox(width: 10),
+                    image: Image(
+                  image: IconImages().iconImage1,
+                )),
                 WalletContainer(
-                  image: Image.network(
-                      'https://github.com/ArshakHakobyan/Pics/blob/main/arrow3.png?raw=true'),
-                ),
+                    image: Image(
+                  image: IconImages().iconImage2,
+                )),
+                WalletContainer(
+                    image: Image(
+                  image: IconImages().iconImage3,
+                )),
+                WalletContainer(
+                    image: Image(
+                  image: IconImages().iconImage4,
+                )),
+                WalletContainer(
+                    image: Image(
+                  image: IconImages().iconImage5,
+                )),
               ],
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                //SizedBox(width: 15),
-                WalletContainer(
-                  image: Image.network(
-                      'https://github.com/ArshakHakobyan/Pics/blob/main/arrow4.png?raw=true'),
-                ),
-                const SizedBox(width: 10),
-                WalletContainer(
-                  image: Image.network(
-                      'https://github.com/ArshakHakobyan/Pics/blob/main/arrow5.png?raw=true'),
-                ),
-                const SizedBox(width: 10),
-                WalletContainer(
-                  image: Image.network(
-                      'https://github.com/ArshakHakobyan/Pics/blob/main/arrow6.png?raw=true'),
-                ),
-              ],
-            ),
+            )
           ],
         ));
   }

@@ -1,8 +1,9 @@
 //import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:telcell_copy/widgets_containers/credit_cards.dart';
-import 'Notifications.dart';
+
+import 'package:telcell_copy/widgets/balance_visibility.dart';
+import 'package:telcell_copy/widgets/credit_cards.dart';
 import 'add_credit_card.dart';
 
 class CardsPage extends StatefulWidget {
@@ -20,8 +21,8 @@ class CardsPageState extends State<CardsPage> {
   void addCard() {
     if (returnedData != null) {
       creditCards.add(CreditCards(
-        cardHolder: returnedData![1],
-        cardNumber: int.tryParse(returnedData![0])!,
+        cardHolder: returnedData![1], //Name of Cardholder
+        cardNumber: int.tryParse(returnedData![0])!, //Card Number
         color: CardColors.blue,
         type: CardTypes.visa,
         bankName: "ID Bank",
@@ -54,31 +55,13 @@ class CardsPageState extends State<CardsPage> {
     // )
   ];
 
-  bool isVisible = true; //for top bar
-  void toggle() {
-    isVisible = !isVisible;
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromRGBO(240, 242, 244, 1),
         appBar: AppBar(
-          backgroundColor: const Color.fromRGBO(238, 111, 50, 1),
-          title: Column(
-            children: [
-              isVisible
-                  ? ShowMoneyField(onPressed: toggle)
-                  : HiddenMoneyField(onPressed: toggle),
-            ],
-          ),
-        ),
+            backgroundColor: const Color.fromRGBO(238, 111, 50, 1),
+            title: const BalanceVisibility()),
         body: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Column(

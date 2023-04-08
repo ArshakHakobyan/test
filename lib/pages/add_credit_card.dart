@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'Notifications.dart';
+import 'package:telcell_copy/widgets/balance_visibility.dart';
 
 class AddCard extends StatefulWidget {
   const AddCard({super.key});
@@ -15,26 +14,12 @@ class AddCardState extends State<AddCard> {
   final nameController = TextEditingController();
   final expirationDateController = TextEditingController();
 
-  //for top bar
-  bool isVisible = true;
-
-  void toggle() {
-    isVisible = !isVisible;
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(238, 111, 50, 1),
-        title: Column(
-          children: [
-            isVisible
-                ? ShowMoneyField(onPressed: toggle)
-                : HiddenMoneyField(onPressed: toggle),
-          ],
-        ),
+        title: const BalanceVisibility(),
       ),
       body: SingleChildScrollView(
         //????

@@ -9,7 +9,6 @@ class DatabaseHelper {
   static const _databaseName = "telCell.db";
   static const _databaseVersion = 1;
 
-  // Конструктор класса
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
 
@@ -47,9 +46,22 @@ class DatabaseHelper {
   }
 
   // create Tab method
+  // create Tab method
   Future<void> _onCreate(Database db, int version) async {
-    await db.execute(
-        "CREATE TABLE credit_cards (id TEXT PRIMARY KEY, card_number INTEGER, card_holder TEXT, expiration_date INTEGER,)");
+    bool tableExists = await _checkIfTableExists(db, 'credit_cards');
+    if (!tableExists) {
+      await db.execute(
+        "CREATE TABLE credit_cards (id TEXT PRIMARY KEY, card_number INTEGER, card_holder TEXT, expiration_date INTEGER)",
+      );
+    }
+  }
+
+// Check if table exists method
+  Future<bool> _checkIfTableExists(Database db, String tableName) async {
+    var res = await db.rawQuery(
+      "SELECT name FROM sqlite_master WHERE type='table' AND name='$tableName'",
+    );
+    return res.isNotEmpty;
   }
 
   // Read from database

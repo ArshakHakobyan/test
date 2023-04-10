@@ -1,21 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum CardTypes { arca, mastrcard, visa }
-
-// enum Months {
-//   january,
-//   february,
-//   march,
-//   april,
-//   may,
-//   june,
-//   july,
-//   august,
-//   september,
-//   october,
-//   november,
-//   december
-// }
+enum CardTypes { mastrcard, visa }
 
 enum CardColors { red, green, blue }
 
@@ -79,7 +64,7 @@ class CreditCards extends StatelessWidget {
                   const SizedBox(
                     width: 150,
                   ),
-                  Text('$year/$month',
+                  Text('$month/$year',
                       style:
                           const TextStyle(color: Colors.white, fontSize: 15)),
                 ],

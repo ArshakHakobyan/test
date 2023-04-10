@@ -165,7 +165,7 @@ class AddCardState extends State<AddCard> {
                           cursorColor: Colors.grey,
                           decoration: const InputDecoration(
                             labelText: 'Expiration date',
-                            hintText: 'MM/YYYY',
+                            hintText: 'YYYY/MM',
                             labelStyle: TextStyle(
                               fontSize: 20,
                               color: Color.fromRGBO(176, 190, 198, 1),
@@ -177,12 +177,12 @@ class AddCardState extends State<AddCard> {
                               return 'Please enter card expiration date';
                             } else if (value.length < 7 || value.length > 7) {
                               return 'Wrong format of date';
-                            } else if (!RegExp(r'^\d{2}/\d{4}$')
+                            } else if (!RegExp(r'^\d{4}/\d{2}$')
                                 .hasMatch(value)) {
-                              return 'Please enter a valid date format (MM/YYYY) and make sure the card is valid for less than 10 years';
-                            } else if (int.parse(value.split('/')[0]) > 12) {
+                              return 'Please enter a valid date format (YYYY/MM) and make sure the card is valid for less than 10 years';
+                            } else if (int.parse(value.split('/')[1]) > 12) {
                               return 'Please enter a valid month between 01 and 12';
-                            } else if (int.parse(value.split('/')[1]) < 2023) {
+                            } else if (int.parse(value.split('/')[0]) < 2023) {
                               return 'Card has expired';
                             }
                             return null;
@@ -228,15 +228,17 @@ class AddCardState extends State<AddCard> {
                 },
                 //Button Style
                 style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(7),
-                    ),
-                    backgroundColor: _isActive == true
-                        ? const Color.fromRGBO(238, 111, 50, 1)
-                        : const Color.fromARGB(255, 124, 124, 124),
-                    minimumSize:
-                        Size(MediaQuery.of(context).size.width - 60, 40)),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.37,
+                    vertical: MediaQuery.of(context).size.height * 0.015,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  backgroundColor: _isActive == true
+                      ? const Color.fromRGBO(238, 111, 50, 1)
+                      : const Color.fromARGB(255, 124, 124, 124),
+                ),
                 child: const Text('Submit'),
               ),
             ],

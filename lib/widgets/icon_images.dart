@@ -20,4 +20,5 @@ class IconImages {
   final iconImage3 = const AssetImage('assets/arrow4.png');
   final iconImage4 = const AssetImage('assets/arrow5.png');
   final iconImage5 = const AssetImage('assets/arrow6.png');
+  final bodyImage = const AssetImage('assets/body.png');
 }

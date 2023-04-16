@@ -15,6 +15,9 @@ class CardsPage extends StatefulWidget {
 }
 
 class CardsPageState extends State<CardsPage> {
+  final double bottomNavBarHeight = kBottomNavigationBarHeight;
+  final double appBarHeight = kToolbarHeight;
+
   @override
   void initState() {
     super.initState();
@@ -77,7 +80,8 @@ class CardsPageState extends State<CardsPage> {
               //Cards
               creditCards.isEmpty
                   ? SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.66,
+                      height: MediaQuery.of(context).size.height -
+                          (kToolbarHeight + kBottomNavigationBarHeight) * 2.2,
                       child: Center(
                           child: Image(
                         image: IconImages().bodyImage,
@@ -86,7 +90,9 @@ class CardsPageState extends State<CardsPage> {
                   : Column(
                       children: [
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.24,
+                          height:
+                              (kToolbarHeight + kBottomNavigationBarHeight) *
+                                  1.6,
                           child: ListView.builder(
                             itemCount: creditCards.length,
                             itemBuilder: (BuildContext context, int index) {
@@ -96,7 +102,10 @@ class CardsPageState extends State<CardsPage> {
                           ),
                         ),
                         SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.43),
+                          height: MediaQuery.of(context).size.height -
+                              (kToolbarHeight + kBottomNavigationBarHeight) *
+                                  3.8,
+                        ),
                       ],
                     ),
 

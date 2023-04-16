@@ -10,8 +10,8 @@ class WalletContainer extends StatelessWidget {
       decoration: const BoxDecoration(
           color: Color.fromRGBO(255, 253, 253, 1),
           borderRadius: BorderRadius.all(Radius.circular(5))),
-      width: 107,
-      height: 107,
+      width: MediaQuery.of(context).size.width * 0.26,
+      height: MediaQuery.of(context).size.width * 0.26,
       child: image,
     );
   }

@@ -13,8 +13,7 @@ class FirstPageContainer extends StatelessWidget {
       decoration: const BoxDecoration(
           color: Color.fromRGBO(8, 0, 0, 0.2),
           borderRadius: BorderRadius.all(Radius.circular(8))),
-      width: 113,
-      height: 135,
+      width: MediaQuery.of(context).size.width * 0.28,
       child: image,
     );
   }

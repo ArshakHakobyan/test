@@ -11,21 +11,21 @@ class AddCard extends StatefulWidget {
 }
 
 class AddCardState extends State<AddCard> {
-  ////////////////////////////////////////
   final _formKey = GlobalKey<FormState>();
-  bool _isActive = false; // for submit button toggle
+  // for submit button toggle
+  bool _isActive = false;
   final FocusNode _focusNode = FocusNode();
-  ////////////////////////////////////////
   //function luhnAlgorithm
   bool luhnAlgorithm(String cardNumber) {
     List<int> digits = cardNumber
         .split('')
         .map(int.parse)
-        .toList(); // convert the card number to a list of numbers
+        // convert the card number to a list of numbers
+        .toList();
 
     int checksum = 0;
-    bool isSecondDigit =
-        false; // flag indicating are the current digit is the second
+    // flag indicating are the current digit is the second
+    bool isSecondDigit = false;
 
     for (int i = digits.length - 1; i >= 0; i--) {
       int digit = digits[i];
@@ -39,8 +39,8 @@ class AddCardState extends State<AddCard> {
       checksum += digit;
       isSecondDigit = !isSecondDigit;
     }
-    return (checksum % 10 ==
-        0); // valid card number if the checksum is a multiple of 10
+    // valid card number if the checksum is a multiple of 10
+    return (checksum % 10 == 0);
   }
 
   //final card
@@ -95,7 +95,7 @@ class AddCardState extends State<AddCard> {
                 autovalidateMode: AutovalidateMode.always,
                 child: Container(
                   width: MediaQuery.of(context).size.width - 20,
-                  height: MediaQuery.of(context).size.height / 2.1,
+                  height: MediaQuery.of(context).size.height / 2.5,
                   color: Colors.white,
                   child: Column(
                     children: [

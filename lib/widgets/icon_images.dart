@@ -21,4 +21,7 @@ class IconImages {
   final iconImage4 = const AssetImage('assets/arrow5.png');
   final iconImage5 = const AssetImage('assets/arrow6.png');
   final bodyImage = const AssetImage('assets/body.png');
+
+  final qrTop = const AssetImage('assets/qrPage.png');
+  final qrBottom = const AssetImage('assets/qrPageBottom.png');
 }

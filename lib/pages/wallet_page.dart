@@ -55,16 +55,12 @@ class _WalletPageState extends State<WalletPage> {
           ),
           actions: [
             IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.home_outlined),
-              iconSize: 30,
-            ),
-            IconButton(
               onPressed: () {
                 toNotifications(choosePage: 'searchPage');
               },
               icon: const Icon(Icons.search_outlined),
               iconSize: 30,
+              padding: const EdgeInsets.only(right: 10),
             )
           ],
         ),
@@ -73,7 +69,8 @@ class _WalletPageState extends State<WalletPage> {
             Stack(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 85),
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height * 0.109),
                   child: Container(
                     decoration: const BoxDecoration(
                         gradient: LinearGradient(
@@ -85,11 +82,12 @@ class _WalletPageState extends State<WalletPage> {
                       end: Alignment.bottomCenter,
                     )),
                     width: double.infinity,
-                    height: 230,
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    //height: 230,
                     child: Column(
                       children: [
                         const SizedBox(
-                          height: 14,
+                          height: 5,
                         ),
                         Text(
                           formateDate,
@@ -108,37 +106,49 @@ class _WalletPageState extends State<WalletPage> {
                               color: Color.fromRGBO(248, 192, 162, 1),
                               fontSize: 13),
                         ),
-                        const SizedBox(
-                          height: 14,
-                        ),
-                        const SizedBox(height: 12),
-                        SizedBox(
-                            height: 18,
-                            width: 82,
-                            child: OutlinedButton(
-                              onPressed: () {},
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all<Color>(
-                                      const Color.fromRGBO(246, 246, 247, 0.3)),
-                                  foregroundColor: MaterialStateProperty.all<
-                                          Color>(
-                                      const Color.fromARGB(255, 251, 253, 255)),
-                                  shape: const MaterialStatePropertyAll(
-                                      RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))))),
-                              child: const Text(
-                                'Replenish',
-                                style: TextStyle(fontSize: 11),
+
+                        ButtonTheme(
+                          minWidth: 0,
+                          height: 0,
+                          child: TextButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                const Color.fromRGBO(246, 246, 247, 0.3),
                               ),
-                            )),
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                const Color.fromARGB(255, 251, 253, 255),
+                              ),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              minimumSize:
+                                  MaterialStateProperty.all<Size>(Size.zero),
+                              padding:
+                                  MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 2),
+                              ),
+                              textStyle: MaterialStateProperty.all<TextStyle>(
+                                const TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            child: const Text('Replenish'),
+                          ),
+                        )
                         //Eye Row //Eye Row
                       ],
                     ),
                   ),
                 ),
                 Positioned(
-                  width: 380, //for scroll view
+                  width: MediaQuery.of(context).size.width, //for scroll view
                   bottom: 0,
                   //
                   child: SingleChildScrollView(
@@ -200,12 +210,12 @@ class _WalletPageState extends State<WalletPage> {
                 )
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 3),
             const Text(
               'Wallet',
               style: TextStyle(fontSize: 20),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             Wrap(
               runSpacing: 10,
               spacing: 10,

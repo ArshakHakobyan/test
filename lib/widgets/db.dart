@@ -45,8 +45,6 @@ class DatabaseHelper {
     await File(path).writeAsBytes(bytes);
   }
 
-  // create Tab method
-  // create Tab method
   Future<void> _onCreate(Database db, int version) async {
     bool tableExists = await _checkIfTableExists(db, 'credit_cards');
     if (!tableExists) {

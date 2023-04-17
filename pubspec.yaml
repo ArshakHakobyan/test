@@ -45,6 +45,7 @@ dependencies:
   image_picker: ^0.8.7+2
   scan: ^1.6.0
   torch_control: ^0.3.0
+  flutter_credit_card: ^3.0.6
  
   
  

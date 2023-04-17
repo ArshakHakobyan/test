@@ -1,10 +1,11 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
-
 import 'package:telcell_copy/widgets/balance_visibility.dart';
-import 'package:telcell_copy/widgets/credit_card.dart';
 import '../widgets/db.dart';
 import '../widgets/icon_images.dart';
 import 'add_credit_card.dart';
+
+import 'package:flutter_credit_card/flutter_credit_card.dart';
 
 class CardsPage extends StatefulWidget {
   const CardsPage({super.key});
@@ -18,6 +19,7 @@ class CardsPageState extends State<CardsPage> {
   final double bottomNavBarHeight = kBottomNavigationBarHeight;
   final double appBarHeight = kToolbarHeight;
 
+  List<CreditCardWidget> updatedCreditCards = [];
   @override
   void initState() {
     super.initState();
@@ -25,7 +27,19 @@ class CardsPageState extends State<CardsPage> {
     //
   }
 
-  List<CreditCards> creditCards = [];
+// color generator function to set credit cards colors randomly
+  Color generateRandomColor() {
+    List<Color> colors = [
+      Colors.black,
+      const Color.fromARGB(255, 6, 57, 99),
+      Colors.green,
+      const Color.fromRGBO(137, 131, 131, 1),
+      const Color.fromRGBO(139, 69, 19, 1)
+    ];
+    Random random = Random();
+    return colors[random.nextInt(5)];
+  }
+
 // get data from data base and call addCard to render cards
   void getDataFromDatabase() async {
     final List<Map> cards =
@@ -46,14 +60,17 @@ class CardsPageState extends State<CardsPage> {
     required String cardHolder,
     required int expirationDate,
   }) {
-    creditCards.add(CreditCards(
-      cardHolder: cardHolder, //Name of Cardholder
-      cardNumber: cardNumber, //Card Number
-      color: CardColors.blue,
-      type: CardTypes.visa,
+    updatedCreditCards.add(CreditCardWidget(
+      cardHolderName: cardHolder, //Name of Cardholder
+      cardNumber: cardNumber.toString(), //Card Number
+      expiryDate: expirationDate.toString(),
+      cardBgColor: generateRandomColor(),
+
+      cvvCode: '123',
       bankName: "ID Bank",
-      year: int.tryParse(expirationDate.toString().substring(0, 4))!,
-      month: int.tryParse(expirationDate.toString().substring(4))!,
+      showBackView: false,
+      onCreditCardWidgetChange: (p0) => {},
+      isHolderNameVisible: true,
     ));
   }
 
@@ -78,7 +95,7 @@ class CardsPageState extends State<CardsPage> {
                 ),
               ),
               //Cards
-              creditCards.isEmpty
+              updatedCreditCards.isEmpty
                   ? SizedBox(
                       height: MediaQuery.of(context).size.height -
                           (kToolbarHeight + kBottomNavigationBarHeight) * 2.2,
@@ -92,19 +109,25 @@ class CardsPageState extends State<CardsPage> {
                         SizedBox(
                           height:
                               (kToolbarHeight + kBottomNavigationBarHeight) *
-                                  1.6,
+                                  1.9,
                           child: ListView.builder(
-                            itemCount: creditCards.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return creditCards[index];
+                            itemCount: updatedCreditCards.length,
+                            itemBuilder: (
+                              BuildContext context,
+                              int index,
+                            ) {
+                              /////////////////////////
+                              return SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.91,
+                                child: updatedCreditCards[index],
+                              );
                             },
                             scrollDirection: Axis.horizontal,
                           ),
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height -
-                              (kToolbarHeight + kBottomNavigationBarHeight) *
-                                  3.8,
+                              (kToolbarHeight + kBottomNavigationBarHeight) * 4,
                         ),
                       ],
                     ),

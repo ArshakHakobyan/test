@@ -1,12 +1,9 @@
 import 'dart:async';
-import 'package:torch_control/torch_control.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-
 import '../widgets/balance_visibility.dart';
 import 'package:scan/scan.dart';
 import '../widgets/icon_images.dart';
@@ -111,17 +108,9 @@ class QrCodePageState extends State<QrCodePage> {
   }
 }
 
-//
-//
-//
-//
-//
-
-// ignore: must_be_immutable
 class QRcodeScan extends StatefulWidget {
-  bool isTorchOn = false;
   final void Function(String) onScaned;
-  QRcodeScan({super.key, required this.onScaned});
+  const QRcodeScan({super.key, required this.onScaned});
 
   @override
   State<StatefulWidget> createState() {
@@ -134,20 +123,9 @@ class QRcodeScanState extends State<QRcodeScan> {
   late QRViewController controller;
   late String qrText;
 
-  bool torchReady = false;
-  void checkTorch() async {
-    torchReady = await TorchControl.ready();
-  }
-
   @override
   void initState() {
     super.initState();
-    //checkTorch();
-    requestCameraPermission();
-  }
-
-  void checkState() {
-    setState(() {});
   }
 
   Future<void> requestCameraPermission() async {
@@ -203,7 +181,7 @@ class QRcodeScanState extends State<QRcodeScan> {
                     PermissionStatus cameraStatus =
                         await Permission.camera.request();
                     if (cameraStatus.isGranted) {
-                      //TorchControl.turnOn().whenComplete(checkState);
+                      controller.toggleFlash();
                     }
                   },
                   child: const Icon(Icons.flashlight_on),

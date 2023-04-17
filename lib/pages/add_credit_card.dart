@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:telcell_copy/widgets/balance_visibility.dart';
 import '../widgets/db.dart';
 
@@ -11,18 +14,28 @@ class AddCard extends StatefulWidget {
 }
 
 class AddCardState extends State<AddCard> {
-  final _formKey = GlobalKey<FormState>();
-  // for submit button toggle
-  bool _isActive = false;
-  final FocusNode _focusNode = FocusNode();
-  //function luhnAlgorithm
-  bool luhnAlgorithm(String cardNumber) {
-    List<int> digits = cardNumber
-        .split('')
-        .map(int.parse)
-        // convert the card number to a list of numbers
-        .toList();
+  String cardNumber = '';
+  String expiryDate = '';
+  String cardHolderName = '';
+  String cvvCode = '';
+  bool isCvvFocused = false;
+  bool useGlassMorphism = false;
+  bool useBackgroundImage = false;
+  OutlineInputBorder? border;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  // for submit button toggle
+  final bool _isActive = false;
+  // for card Number validation
+  bool luhnAlgorithm(String cardNumber) {
+    List<int> digits = [];
+
+    for (var i = 0; i < cardNumber.length; i++) {
+      var digit = int.tryParse(cardNumber[i]);
+      if (digit != null) {
+        digits.add(digit);
+      }
+    }
     int checksum = 0;
     // flag indicating are the current digit is the second
     bool isSecondDigit = false;
@@ -43,10 +56,28 @@ class AddCardState extends State<AddCard> {
     return (checksum % 10 == 0);
   }
 
-  //final card
-  final cardNumberController = TextEditingController();
-  final nameController = TextEditingController();
-  final expirationDateController = TextEditingController();
+  // color generator function to set credit cards colors randomly
+  Color generateRandomColor() {
+    List<Color> colors = [
+      Colors.black,
+      const Color.fromARGB(255, 6, 57, 99),
+      Colors.green,
+      const Color.fromRGBO(137, 131, 131, 1),
+      const Color.fromRGBO(139, 69, 19, 1)
+    ];
+    Random random = Random();
+    return colors[random.nextInt(5)];
+  }
+
+  void onCreditCardModelChange(CreditCardModel? creditCardModel) {
+    setState(() {
+      cardNumber = creditCardModel!.cardNumber;
+      expiryDate = creditCardModel.expiryDate;
+      cardHolderName = creditCardModel.cardHolderName;
+      cvvCode = creditCardModel.cvvCode;
+      isCvvFocused = creditCardModel.isCvvFocused;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +93,9 @@ class AddCardState extends State<AddCard> {
           child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.all(15),
+                padding: const EdgeInsets.only(top: 5, left: 15),
                 width: MediaQuery.of(context).size.width,
-                height: 55,
+                height: MediaQuery.of(context).size.width * 0.1,
                 child: const Text(
                   'Bank Card',
                   style: TextStyle(
@@ -75,122 +106,69 @@ class AddCardState extends State<AddCard> {
                 ),
               ),
               // Credit Card Form
-              Form(
-                /////////////
-                key: _formKey,
-                /////////////
-                //for submit button activation/deactivation
-                onChanged: () {
-                  if (_formKey.currentState!.validate()) {
-                    setState(() {
-                      _isActive = true;
-                      _focusNode.unfocus();
-                    });
-                  } else if (_isActive =
-                      true && !_formKey.currentState!.validate()) {
-                    _isActive = false;
+              CreditCardForm(
+                cardNumber: cardNumber,
+                cardNumberValidator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Type Card Number';
+                  } else if (value.trim().length - 3 < 16 ||
+                      value.trim().length - 3 > 16) {
+                    return 'Card number must contain 16 digits';
+                  } else {
+                    if (!luhnAlgorithm(value.toString())) {
+                      return 'Invalid Card';
+                    }
                   }
+                  return null;
                 },
-
-                autovalidateMode: AutovalidateMode.always,
-                child: Container(
-                  width: MediaQuery.of(context).size.width - 20,
-                  height: MediaQuery.of(context).size.height / 2.5,
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      //card Number field
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: TextFormField(
-                          controller: cardNumberController,
-                          cursorColor: Colors.grey,
-                          decoration: const InputDecoration(
-                            labelText: 'Card Number',
-                            labelStyle: TextStyle(
-                              fontSize: 20,
-                              color: Color.fromRGBO(176, 190, 198, 1),
-                            ),
-                          ),
-                          keyboardType: TextInputType.number,
-                          //////////////////////////////////////////////////
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Type Card Number';
-                            } else if (value.length < 16 || value.length > 16) {
-                              return 'Card number must contain 16 digits';
-                            } else {
-                              if (!luhnAlgorithm(value.toString())) {
-                                return 'Invalid Card';
-                              }
-                            }
-                            return null;
-                          },
-                          ////////////////////////////////////////////////
-                        ),
-                      ),
-
-                      // cardholder name surname field
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: TextFormField(
-                          controller: nameController,
-                          cursorColor: Colors.grey,
-                          decoration: const InputDecoration(
-                            labelText: 'Name and Surname',
-                            labelStyle: TextStyle(
-                              fontSize: 20,
-                              color: Color.fromRGBO(176, 190, 198, 1),
-                            ),
-                          ),
-                          keyboardType: TextInputType.name,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your name and surname';
-                            } else if (!RegExp(r'^[a-zA-Z]+\s[a-zA-Z]+$')
-                                .hasMatch(value)) {
-                              return 'Please enter a valid name and surname';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-
-                      // Expiration Date field
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: TextFormField(
-                          focusNode: _focusNode,
-                          controller: expirationDateController,
-                          cursorColor: Colors.grey,
-                          decoration: const InputDecoration(
-                            labelText: 'Expiration date',
-                            hintText: 'YYYY/MM',
-                            labelStyle: TextStyle(
-                              fontSize: 20,
-                              color: Color.fromRGBO(176, 190, 198, 1),
-                            ),
-                          ),
-                          keyboardType: TextInputType.datetime,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter card expiration date';
-                            } else if (value.length < 7 || value.length > 7) {
-                              return 'Wrong format of date';
-                            } else if (!RegExp(r'^\d{4}/\d{2}$')
-                                .hasMatch(value)) {
-                              return 'Please enter a valid date format (YYYY/MM) and make sure the card is valid for less than 10 years';
-                            } else if (int.parse(value.split('/')[1]) > 12) {
-                              return 'Please enter a valid month between 01 and 12';
-                            } else if (int.parse(value.split('/')[0]) < 2023) {
-                              return 'Card has expired';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                    ],
+                expiryDate: expiryDate,
+                cardHolderName: cardHolderName,
+                cardHolderValidator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your name and surname';
+                  } else if (!RegExp(r'^[a-zA-Z]+\s[a-zA-Z]+$')
+                      .hasMatch(value)) {
+                    return 'Please enter a valid name and surname';
+                  }
+                  return null;
+                },
+                cvvCode: cvvCode,
+                onCreditCardModelChange: onCreditCardModelChange,
+                themeColor: Colors.black,
+                formKey: formKey,
+                cvvCodeDecoration: const InputDecoration(
+                  filled: true,
+                  border: OutlineInputBorder(),
+                  labelText: 'CVV',
+                  hintText: 'XXX',
+                ),
+                cardNumberDecoration: InputDecoration(
+                  filled: true,
+                  labelText: 'Number',
+                  hintText: 'XXXX XXXX XXXX XXXX',
+                  hintStyle: const TextStyle(
+                    color: Colors.grey,
                   ),
+                  labelStyle: const TextStyle(color: Colors.grey),
+                  focusedBorder: border,
+                  enabledBorder: border,
+                ),
+                expiryDateDecoration: InputDecoration(
+                  filled: true,
+                  hintStyle: const TextStyle(color: Colors.grey),
+                  labelStyle: const TextStyle(color: Colors.grey),
+                  focusedBorder: border,
+                  enabledBorder: border,
+                  labelText: 'Expired Date',
+                  hintText: 'XX/XX',
+                ),
+                cardHolderDecoration: InputDecoration(
+                  filled: true,
+                  hintStyle: const TextStyle(color: Colors.grey),
+                  labelStyle: const TextStyle(color: Colors.grey),
+                  focusedBorder: border,
+                  enabledBorder: border,
+                  labelText: 'Card Holder',
                 ),
               ),
               Container(
@@ -205,7 +183,7 @@ class AddCardState extends State<AddCard> {
               Container(
                 padding: const EdgeInsets.all(15),
                 width: MediaQuery.of(context).size.width,
-                height: 110,
+                height: kToolbarHeight * 1.8,
                 child: const Text(
                   'There is a 1.5% commission if you\r\n replenish or make payments with cards of \r\n VTB (Armenia)',
                   style: TextStyle(fontSize: 15),
@@ -213,14 +191,14 @@ class AddCardState extends State<AddCard> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
+                  if (formKey.currentState!.validate()) {
                     DatabaseHelper.instance.insertDataToDatabase(
-                        id: DateTime.now().toString(), //Unique Id
-                        cardNumber: int.tryParse(cardNumberController.text)!,
-                        cardHolder: nameController.text,
-                        expirationDate: int.tryParse(expirationDateController
-                            .text
-                            .replaceAll('/', ''))!);
+                      id: DateTime.now().toString(), //Unique Id
+                      cardNumber: cardNumber,
+                      cardHolder: cardHolderName,
+                      expirationDate: expiryDate,
+                      // cvv
+                    );
                     Navigator.pop(context, 'Route');
                   } else {
                     null;
@@ -235,7 +213,7 @@ class AddCardState extends State<AddCard> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7),
                   ),
-                  backgroundColor: _isActive == true
+                  backgroundColor: _isActive == false
                       ? const Color.fromRGBO(238, 111, 50, 1)
                       : const Color.fromARGB(255, 124, 124, 124),
                 ),

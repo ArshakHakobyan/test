@@ -49,7 +49,7 @@ class DatabaseHelper {
     bool tableExists = await _checkIfTableExists(db, 'credit_cards');
     if (!tableExists) {
       await db.execute(
-        "CREATE TABLE credit_cards (id TEXT PRIMARY KEY, card_number INTEGER, card_holder TEXT, expiration_date INTEGER)",
+        "CREATE TABLE credit_cards (id TEXT PRIMARY KEY, card_number TEXT, card_holder TEXT, expiration_date TEXT)",
       );
     }
   }
@@ -71,9 +71,10 @@ class DatabaseHelper {
 // for add into db
   Future<int> insertDataToDatabase({
     required String id,
-    required int cardNumber,
+    required String cardNumber,
     required String cardHolder,
-    required int expirationDate,
+    required String expirationDate,
+    //required String color,
   }) async {
     final db = await instance.database;
     return await db.insert(
@@ -83,6 +84,7 @@ class DatabaseHelper {
         'card_number': cardNumber,
         'card_holder': cardHolder,
         'expiration_date': expirationDate,
+        //'color': color,
       },
     );
   }

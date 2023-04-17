@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:telcell_copy/widgets/balance_visibility.dart';
 import '../widgets/db.dart';
@@ -27,19 +26,6 @@ class CardsPageState extends State<CardsPage> {
     //
   }
 
-// color generator function to set credit cards colors randomly
-  Color generateRandomColor() {
-    List<Color> colors = [
-      Colors.black,
-      const Color.fromARGB(255, 6, 57, 99),
-      Colors.green,
-      const Color.fromRGBO(137, 131, 131, 1),
-      const Color.fromRGBO(139, 69, 19, 1)
-    ];
-    Random random = Random();
-    return colors[random.nextInt(5)];
-  }
-
 // get data from data base and call addCard to render cards
   void getDataFromDatabase() async {
     final List<Map> cards =
@@ -56,16 +42,24 @@ class CardsPageState extends State<CardsPage> {
 
   //add card
   void addCard({
-    required int cardNumber,
+    required String cardNumber,
     required String cardHolder,
-    required int expirationDate,
+    required String expirationDate,
   }) {
     updatedCreditCards.add(CreditCardWidget(
       cardHolderName: cardHolder, //Name of Cardholder
-      cardNumber: cardNumber.toString(), //Card Number
-      expiryDate: expirationDate.toString(),
-      cardBgColor: generateRandomColor(),
+      cardNumber: cardNumber, //Card Number
+      expiryDate: expirationDate,
 
+      glassmorphismConfig: Glassmorphism(
+        blurX: 50,
+        blurY: 50,
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Colors.black, Color.fromARGB(255, 188, 126, 25)],
+        ),
+      ),
       cvvCode: '123',
       bankName: "ID Bank",
       showBackView: false,
@@ -140,8 +134,11 @@ class CardsPageState extends State<CardsPage> {
                       builder: (context) => const AddCard(),
                     ),
                   );
-                  getDataFromDatabase();
-                  setState(() {});
+                  //getDataFromDatabase();
+                  setState(() {
+                    updatedCreditCards = [];
+                    getDataFromDatabase();
+                  });
                 },
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(

@@ -49,7 +49,7 @@ class QrCodePageState extends State<QrCodePage> {
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
-                        color: selectedButton == 'Scan Qr Code'
+                        color: selectedButton == 'My Qr Code'
                             ? const Color.fromRGBO(238, 111, 50, 1)
                             : Colors.white,
                         width: 3,
@@ -57,15 +57,15 @@ class QrCodePageState extends State<QrCodePage> {
                       child: TextButton(
                           onPressed: () {
                             setState(() {
-                              selectedButton = 'Scan Qr Code';
+                              selectedButton = 'My Qr Code';
                             });
                           },
                           style: ButtonStyle(
                             visualDensity: VisualDensity.compact,
                             padding: MaterialStateProperty.all(EdgeInsets.zero),
                           ),
-                          child: Text("Scan Qr Code",
-                              style: selectedButton == 'Scan Qr Code'
+                          child: Text("My Qr Code",
+                              style: selectedButton == 'My Qr Code'
                                   ? const TextStyle(color: Colors.black)
                                   : const TextStyle(color: Colors.grey))),
                     ),
@@ -75,7 +75,7 @@ class QrCodePageState extends State<QrCodePage> {
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
-                        color: selectedButton == 'My Qr Code'
+                        color: selectedButton == 'Scan Qr Code'
                             ? const Color.fromRGBO(238, 111, 50, 1)
                             : Colors.white,
                         width: 3,
@@ -83,14 +83,14 @@ class QrCodePageState extends State<QrCodePage> {
                       child: TextButton(
                         onPressed: () {
                           setState(() {
-                            selectedButton = 'My Qr Code';
+                            selectedButton = 'Scan Qr Code';
                           });
                         },
                         style: const ButtonStyle(
                           visualDensity: VisualDensity.compact,
                         ),
-                        child: Text("My Qr Code",
-                            style: selectedButton == 'My Qr Code'
+                        child: Text("Scan Qr Code",
+                            style: selectedButton == 'Scan Qr Code'
                                 ? const TextStyle(color: Colors.black)
                                 : const TextStyle(color: Colors.grey)),
                       ),
@@ -102,9 +102,9 @@ class QrCodePageState extends State<QrCodePage> {
           ),
           backgroundColor: const Color.fromRGBO(238, 111, 50, 1),
         ),
-        body: selectedButton == 'My Qr Code'
-            ? MyQRCode(data: qrData)
-            : QRcodeScan(onScaned: onQrDataChange));
+        body: selectedButton == 'Scan Qr Code'
+            ? QRcodeScan(onScaned: onQrDataChange)
+            : MyQRCode(data: qrData));
   }
 }
 

@@ -29,7 +29,6 @@ class AddCardState extends State<AddCard> {
   // for card Number validation
   bool luhnAlgorithm(String cardNumber) {
     List<int> digits = [];
-
     for (var i = 0; i < cardNumber.length; i++) {
       var digit = int.tryParse(cardNumber[i]);
       if (digit != null) {
@@ -69,6 +68,7 @@ class AddCardState extends State<AddCard> {
     return colors[random.nextInt(5)];
   }
 
+// CreditCardForm  function handle
   void onCreditCardModelChange(CreditCardModel? creditCardModel) {
     setState(() {
       cardNumber = creditCardModel!.cardNumber;
@@ -93,7 +93,7 @@ class AddCardState extends State<AddCard> {
           child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.only(top: 5, left: 15),
+                padding: const EdgeInsets.only(top: 10, left: 15),
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.width * 0.1,
                 child: const Text(

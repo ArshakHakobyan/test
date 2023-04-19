@@ -3,7 +3,6 @@ import 'package:telcell_copy/widgets/balance_visibility.dart';
 import '../widgets/db.dart';
 import '../widgets/icon_images.dart';
 import 'add_credit_card.dart';
-
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
 class CardsPage extends StatefulWidget {
@@ -77,6 +76,7 @@ class CardsPageState extends State<CardsPage> {
             title: const BalanceVisibility()),
         body: SizedBox(
           width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
               Container(
@@ -90,9 +90,7 @@ class CardsPageState extends State<CardsPage> {
               ),
               //Cards
               updatedCreditCards.isEmpty
-                  ? SizedBox(
-                      height: MediaQuery.of(context).size.height -
-                          (kToolbarHeight + kBottomNavigationBarHeight) * 2.2,
+                  ? Expanded(
                       child: Center(
                           child: Image(
                         image: IconImages().bodyImage,
@@ -119,13 +117,12 @@ class CardsPageState extends State<CardsPage> {
                             scrollDirection: Axis.horizontal,
                           ),
                         ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height -
-                              (kToolbarHeight + kBottomNavigationBarHeight) * 4,
-                        ),
                       ],
                     ),
-
+              //for Bind Card button addaptive position
+              updatedCreditCards.isEmpty
+                  ? const SizedBox()
+                  : const Expanded(child: SizedBox()),
               ElevatedButton(
                 onPressed: () async {
                   await Navigator.push(
@@ -134,7 +131,7 @@ class CardsPageState extends State<CardsPage> {
                       builder: (context) => const AddCard(),
                     ),
                   );
-                  //getDataFromDatabase();
+
                   setState(() {
                     updatedCreditCards = [];
                     getDataFromDatabase();

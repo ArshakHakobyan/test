@@ -3,8 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:telcell_copy/widgets/balance_visibility.dart';
 
 import 'search_page.dart';
-import '../widgets/first_page_container.dart';
-import '../widgets/first_page_container2.dart';
+import '../widgets/wallet_page_widgets/first_page_container.dart';
+import '../widgets/wallet_page_widgets/first_page_container2.dart';
 import 'notifications.dart';
 import 'package:telcell_copy/widgets/icon_images.dart';
 
@@ -41,7 +41,6 @@ class _WalletPageState extends State<WalletPage> {
   Widget build(BuildContext context) {
     String formateDate =
         "${DateFormat.yMMMMEEEEd().format(now)} ${DateFormat.Hm().format(now)}"; //interpolation use???
-    //DateFormat.y
 
     return Scaffold(
         backgroundColor: const Color.fromRGBO(240, 242, 244, 1),
@@ -215,36 +214,41 @@ class _WalletPageState extends State<WalletPage> {
               'Wallet',
               style: TextStyle(fontSize: 20),
             ),
-            const SizedBox(height: 5),
-            Wrap(
-              runSpacing: 10,
-              spacing: 10,
-              children: [
-                WalletContainer(
-                    image: Image(
-                  image: IconImages().iconImage,
-                )),
-                WalletContainer(
-                    image: Image(
-                  image: IconImages().iconImage1,
-                )),
-                WalletContainer(
-                    image: Image(
-                  image: IconImages().iconImage2,
-                )),
-                WalletContainer(
-                    image: Image(
-                  image: IconImages().iconImage3,
-                )),
-                WalletContainer(
-                    image: Image(
-                  image: IconImages().iconImage4,
-                )),
-                WalletContainer(
-                    image: Image(
-                  image: IconImages().iconImage5,
-                )),
-              ],
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 1),
+                child: Wrap(
+                  runAlignment: WrapAlignment.center,
+                  runSpacing: 10,
+                  spacing: 15,
+                  children: [
+                    WalletContainer(
+                        image: Image(
+                      image: IconImages().iconImage,
+                    )),
+                    WalletContainer(
+                        image: Image(
+                      image: IconImages().iconImage1,
+                    )),
+                    WalletContainer(
+                        image: Image(
+                      image: IconImages().iconImage2,
+                    )),
+                    WalletContainer(
+                        image: Image(
+                      image: IconImages().iconImage3,
+                    )),
+                    WalletContainer(
+                        image: Image(
+                      image: IconImages().iconImage4,
+                    )),
+                    WalletContainer(
+                        image: Image(
+                      image: IconImages().iconImage5,
+                    )),
+                  ],
+                ),
+              ),
             )
           ],
         ));

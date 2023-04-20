@@ -24,4 +24,7 @@ class IconImages {
 
   final qrTop = const AssetImage('assets/qrPage.png');
   final qrBottom = const AssetImage('assets/qrPageBottom.png');
+
+  final backgroundImage =
+      const AssetImage('assets/congratulations_background.jpg');
 }

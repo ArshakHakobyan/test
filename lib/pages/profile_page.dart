@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/profile_page_widgets/profile_page_accaunt_container.dart';
-import '../widgets/profile_page_widgets/profile_page_avatar.dart';
+import '../widgets/profile_page_widgets/account_field_widget.dart';
+import 'package:telcell_copy/widgets/profile_page_widgets/avatar_widget.dart';
+import '../widgets/profile_page_widgets/cards_and_fines_field.dart';
+import '../widgets/profile_page_widgets/contact_us_widget.dart';
+import '../widgets/profile_page_widgets/exit_widget.dart';
+import '../widgets/profile_page_widgets/property_tax_widget.dart';
+import '../widgets/profile_page_widgets/settings_widget.dart';
 import '../widgets/profile_page_widgets/three_fileld_widget.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -41,7 +46,7 @@ class ProfilePageState extends State<ProfilePage> {
             children: [
               // First Container
               const Avatar(),
-              OneFileldWidget(),
+              const OneFileldWidget(),
               ThreeFileldWidget(
                 hasAmountField: false,
                 firstIcon: Icons.auto_stories,
@@ -69,7 +74,23 @@ class ProfilePageState extends State<ProfilePage> {
                 secondTitle: ' Partners and promotions',
                 thirdTitle: ' Tickets and coupons',
               ),
-              OneFileldWidget(),
+              const CarsAndFines(),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: const Divider(
+                  height: 1,
+                ),
+              ),
+              const PropertyTax(),
+              const Settings(),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: const Divider(
+                  height: 1,
+                ),
+              ),
+              const ContactUs(),
+              const Exit()
             ],
           ),
         ),

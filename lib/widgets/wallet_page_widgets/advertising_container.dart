@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class FirstPageContainer extends StatelessWidget {
+class AdvertisingContainer extends StatelessWidget {
   final Image image;
 
-  const FirstPageContainer({key, required this.image}) : super(key: key);
+  const AdvertisingContainer({key, required this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

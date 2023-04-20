@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:telcell_copy/pages/raise_page.dart';
+import 'package:telcell_copy/widgets/icon_images.dart';
 
 class Avatar extends StatelessWidget {
   const Avatar({
@@ -152,25 +154,83 @@ class Avatar extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 15, bottom: 20),
             child: Row(
-              children: const [
-                InkWell(
+              children: [
+                const InkWell(
                   child: Icon(
                     Icons.cleaning_services_sharp,
                     color: Color.fromRGBO(238, 111, 50, 1),
                   ),
                 ),
-                Text(
-                  ' Your Telcell Wallets birthday is',
-                  style: TextStyle(color: Colors.grey, fontSize: 14),
+                const Expanded(
+                  flex: 4,
+                  child: Text(
+                    ' Your wallets birthday is feb 26th',
+                    style: TextStyle(color: Colors.grey, fontSize: 14),
+                  ),
                 ),
-                Expanded(
+                const Expanded(
                     child: SizedBox(
                   width: 1,
                 )),
                 InkWell(
-                  child: Icon(
-                    Icons.warning_outlined,
-                    color: Color.fromRGBO(238, 111, 50, 1),
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            contentPadding: EdgeInsets.zero,
+                            content: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: IconImages().backgroundImage)),
+                              height: 265,
+                              child: Column(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.all(16),
+                                    child: Text(
+                                      'Congratulations',
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          color:
+                                              Color.fromRGBO(238, 111, 50, 1)),
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 16, right: 16, bottom: 16),
+                                    child: Text(
+                                      'Everyone celebrates their birthday once a year.Telcell Wallet gave you the opportunity to celebrate a second birthday when you chose the comfort by downloading Telcell wallet application.Thank you for your choice',
+                                      style: TextStyle(fontSize: 17),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text(
+                                        'Close',
+                                        style: TextStyle(
+                                            fontSize: 20, color: Colors.grey),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        });
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.only(right: 10),
+                    child: Icon(
+                      Icons.warning_outlined,
+                      color: Color.fromRGBO(238, 111, 50, 1),
+                    ),
                   ),
                 )
               ],
@@ -184,8 +244,8 @@ class Avatar extends StatelessWidget {
           Expanded(
             child: Row(
               //crossAxisAlignment: ,
-              children: const [
-                InkWell(
+              children: [
+                const InkWell(
                   child: Icon(
                     Icons.admin_panel_settings,
                     color: Color.fromRGBO(238, 111, 50, 1),
@@ -193,27 +253,34 @@ class Avatar extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     top: 5,
                     bottom: 0,
                   ),
-                  child: Text(
-                    ' Personification',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 17,
+                  child: InkWell(
+                    onTap: () {},
+                    child: const Text(
+                      ' Personification',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 17,
+                      ),
                     ),
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   child: SizedBox(
                     width: 1,
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(right: 8),
+                  padding: const EdgeInsets.only(right: 8),
                   child: InkWell(
-                    child: Text(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute<void>(
+                          builder: (context) => const RaisePage()));
+                    },
+                    child: const Text(
                       'Raise >',
                       style: TextStyle(
                           fontSize: 17, color: Color.fromRGBO(238, 111, 50, 1)),

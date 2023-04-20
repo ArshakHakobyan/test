@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:telcell_copy/widgets/balance_visibility.dart';
-
 import 'search_page.dart';
-import '../widgets/wallet_page_widgets/first_page_container.dart';
-import '../widgets/wallet_page_widgets/first_page_container2.dart';
+import 'package:telcell_copy/widgets/wallet_page_widgets/advertising_container.dart';
+import 'package:telcell_copy/widgets/wallet_page_widgets/wallet_button.dart';
 import 'notifications.dart';
 import 'package:telcell_copy/widgets/icon_images.dart';
 
@@ -155,51 +154,51 @@ class _WalletPageState extends State<WalletPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        FirstPageContainer(
+                        AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage,
                         )),
-                        FirstPageContainer(
+                        AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage1,
                         )),
-                        FirstPageContainer(
+                        AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage2,
                         )),
-                        FirstPageContainer(
+                        AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage3,
                         )),
-                        FirstPageContainer(
+                        AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage4,
                         )),
-                        FirstPageContainer(
+                        AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage5,
                         )),
-                        FirstPageContainer(
+                        AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage6,
                         )),
-                        FirstPageContainer(
+                        AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage7,
                         )),
-                        FirstPageContainer(
+                        AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage8,
                         )),
-                        FirstPageContainer(
+                        AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage9,
                         )),
-                        FirstPageContainer(
+                        AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage10,
                         )),
-                        FirstPageContainer(
+                        AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage11,
                         )),

@@ -185,7 +185,7 @@ class Avatar extends StatelessWidget {
                                   image: DecorationImage(
                                       fit: BoxFit.cover,
                                       image: IconImages().backgroundImage)),
-                              height: 265,
+                              height: 280,
                               child: Column(
                                 children: [
                                   const Padding(

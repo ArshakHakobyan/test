@@ -1,5 +1,6 @@
-
 import 'package:flutter/material.dart';
+
+import '../../pages/my_account_page.dart';
 
 class OneFileldWidget extends StatelessWidget {
   const OneFileldWidget({
@@ -34,7 +35,12 @@ class OneFileldWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 8),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return const MyAccountPage();
+                }));
+              },
               child: const Text(
                 'Open  >',
                 style: TextStyle(

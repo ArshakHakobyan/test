@@ -123,31 +123,34 @@ class CardsPageState extends State<CardsPage> {
               updatedCreditCards.isEmpty
                   ? const SizedBox()
                   : const Expanded(child: SizedBox()),
-              ElevatedButton(
-                onPressed: () async {
-                  await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AddCard(),
-                    ),
-                  );
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AddCard(),
+                      ),
+                    );
 
-                  setState(() {
-                    updatedCreditCards = [];
-                    getDataFromDatabase();
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.33,
-                    vertical: MediaQuery.of(context).size.height * 0.015,
+                    setState(() {
+                      updatedCreditCards = [];
+                      getDataFromDatabase();
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.33,
+                      vertical: MediaQuery.of(context).size.height * 0.015,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(7),
+                    ),
+                    backgroundColor: const Color.fromRGBO(238, 111, 50, 1),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(7),
-                  ),
-                  backgroundColor: const Color.fromRGBO(238, 111, 50, 1),
+                  child: const Text('Bind a Card'),
                 ),
-                child: const Text('Bind a Card'),
               )
             ],
           ),

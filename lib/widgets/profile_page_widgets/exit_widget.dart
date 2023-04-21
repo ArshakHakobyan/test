@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class Exit extends StatelessWidget {
@@ -43,7 +45,33 @@ class Exit extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Are you sure you want to exit?'),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text(
+                                'No',
+                                style: TextStyle(
+                                    color: Color.fromRGBO(238, 111, 50, 1)),
+                              ),
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                            TextButton(
+                              child: const Text(
+                                'Yes',
+                                style: TextStyle(
+                                    color: Color.fromRGBO(238, 111, 50, 1)),
+                              ),
+                              onPressed: () => exit(0),
+                            ),
+                          ],
+                        );
+                      });
+                },
                 child: const Icon(
                   Icons.arrow_forward_ios,
                   size: 16,

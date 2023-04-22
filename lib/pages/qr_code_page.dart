@@ -39,13 +39,14 @@ class QrCodePageState extends State<QrCodePage> {
           title: const BalanceVisibility(),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(30),
-            child: Container(
+            child: Ink(
               color: const Color.fromARGB(255, 255, 255, 255),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Expanded(
                     child: Container(
+                      height: 42,
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
@@ -54,24 +55,23 @@ class QrCodePageState extends State<QrCodePage> {
                             : Colors.white,
                         width: 3,
                       ))),
-                      child: TextButton(
-                          onPressed: () {
+                      child: InkWell(
+                          onTap: () {
                             setState(() {
                               selectedButton = 'My Qr Code';
                             });
                           },
-                          style: ButtonStyle(
-                            visualDensity: VisualDensity.compact,
-                            padding: MaterialStateProperty.all(EdgeInsets.zero),
-                          ),
-                          child: Text("My Qr Code",
-                              style: selectedButton == 'My Qr Code'
-                                  ? const TextStyle(color: Colors.black)
-                                  : const TextStyle(color: Colors.grey))),
+                          child: Center(
+                            child: Text("My Qr Code",
+                                style: selectedButton == 'My Qr Code'
+                                    ? const TextStyle(color: Colors.black)
+                                    : const TextStyle(color: Colors.grey)),
+                          )),
                     ),
                   ),
                   Expanded(
-                    child: Container(
+                    child: Ink(
+                      height: 42,
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
@@ -80,19 +80,18 @@ class QrCodePageState extends State<QrCodePage> {
                             : Colors.white,
                         width: 3,
                       ))),
-                      child: TextButton(
-                        onPressed: () {
+                      child: InkWell(
+                        onTap: () {
                           setState(() {
                             selectedButton = 'Scan Qr Code';
                           });
                         },
-                        style: const ButtonStyle(
-                          visualDensity: VisualDensity.compact,
+                        child: Center(
+                          child: Text("Scan Qr Code",
+                              style: selectedButton == 'Scan Qr Code'
+                                  ? const TextStyle(color: Colors.black)
+                                  : const TextStyle(color: Colors.grey)),
                         ),
-                        child: Text("Scan Qr Code",
-                            style: selectedButton == 'Scan Qr Code'
-                                ? const TextStyle(color: Colors.black)
-                                : const TextStyle(color: Colors.grey)),
                       ),
                     ),
                   ),

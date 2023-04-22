@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:telcell_copy/widgets/balance_visibility.dart';
 import 'search_page.dart';
 import 'package:telcell_copy/widgets/wallet_page_widgets/advertising_container.dart';
-import 'package:telcell_copy/widgets/wallet_page_widgets/wallet_button.dart';
+import 'package:telcell_copy/widgets/wallet_page_widgets/small_icon_button.dart';
 import 'notifications.dart';
 import 'package:telcell_copy/widgets/icon_images.dart';
 
@@ -221,27 +221,27 @@ class _WalletPageState extends State<WalletPage> {
                   runSpacing: 10,
                   spacing: 15,
                   children: [
-                    WalletContainer(
+                    SmallIconButton(
                         image: Image(
                       image: IconImages().iconImage,
                     )),
-                    WalletContainer(
+                    SmallIconButton(
                         image: Image(
                       image: IconImages().iconImage1,
                     )),
-                    WalletContainer(
+                    SmallIconButton(
                         image: Image(
                       image: IconImages().iconImage2,
                     )),
-                    WalletContainer(
+                    SmallIconButton(
                         image: Image(
                       image: IconImages().iconImage3,
                     )),
-                    WalletContainer(
+                    SmallIconButton(
                         image: Image(
                       image: IconImages().iconImage4,
                     )),
-                    WalletContainer(
+                    SmallIconButton(
                         image: Image(
                       image: IconImages().iconImage5,
                     )),

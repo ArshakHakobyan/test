@@ -541,14 +541,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.16"
-  torch_control:
-    dependency: "direct main"
-    description:
-      name: torch_control
-      sha256: e4e9c413e81b85be6aba6e397e6a75fb5cb34eae3445de1912bbf7e9b0774d25
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.0"
   typed_data:
     dependency: transitive
     description:

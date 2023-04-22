@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:telcell_copy/widgets/balance_visibility.dart';
 import 'package:telcell_copy/widgets/icon_images.dart';
 
-import '../widgets/wallet_page_widgets/wallet_button.dart';
+import '../widgets/wallet_page_widgets/small_icon_button.dart';
 
 class MyAccountPage extends StatefulWidget {
   const MyAccountPage({super.key});
@@ -106,14 +106,14 @@ class Banks extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: WalletContainer(
+                    child: SmallIconButton(
                         image: Image(
                       image: IconImages().iconImage,
                     )),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: WalletContainer(
+                    child: SmallIconButton(
                         image: Image(
                       image: IconImages().iconImage,
                     )),

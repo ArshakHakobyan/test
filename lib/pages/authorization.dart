@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:telcell_copy/pages/registratin_page.dart';
 
 import '../widgets/icon_images.dart';
 
@@ -14,6 +16,27 @@ class Authorization extends StatefulWidget {
 }
 
 class AuthorizationState extends State<Authorization> {
+  late final LocalAuthentication auth;
+  bool supportstate = false;
+
+  @override
+  void initState() {
+    super.initState();
+    auth = LocalAuthentication();
+
+    auth.isDeviceSupported().then(
+      (bool value) {
+        setState(() {
+          auth.getAvailableBiometrics().then((value) {
+            return value.isNotEmpty
+                ? supportstate = true
+                : supportstate = false;
+          });
+        });
+      },
+    );
+  }
+
   String pinCode = '';
   String realPin = '5693';
 
@@ -36,7 +59,7 @@ class AuthorizationState extends State<Authorization> {
     ));
   }
 
-  Widget iconButton(IconData icon) {
+  Widget backspaceButton(IconData icon) {
     return Expanded(
         child: InkWell(
       onTap: () {
@@ -52,6 +75,43 @@ class AuthorizationState extends State<Authorization> {
         color: Colors.grey,
       )),
     ));
+  }
+
+  Widget fingerprint() {
+    return Expanded(
+      child: InkResponse(
+        onTap: () async {
+          if (supportstate) {
+            bool authenticated = await authenticate();
+            if (authenticated) {
+              setState(() {
+                pinCode = realPin;
+                Timer(const Duration(milliseconds: 50), () {
+                  setState(() {
+                    widget.callback();
+                  });
+                });
+                //widget.callback();
+              });
+            }
+          } else {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const AlertDialog(
+                    title: Center(
+                        child: Text('You have not installed biometrics ')),
+                    content: Text('.....'),
+                  );
+                });
+          }
+        },
+        child: const Icon(
+          Icons.fingerprint_sharp,
+          color: Color.fromRGBO(238, 111, 50, 1),
+        ),
+      ),
+    );
   }
 
   void addDigit(String digit) {
@@ -73,6 +133,21 @@ class AuthorizationState extends State<Authorization> {
           });
         }
       });
+    }
+  }
+
+  Future<bool> authenticate() async {
+    try {
+      final authenticated = await auth.authenticate(
+        localizedReason: "Դի Մադտ",
+        options: const AuthenticationOptions(
+          stickyAuth: true,
+          biometricOnly: false,
+        ),
+      );
+      return authenticated;
+    } catch (e) {
+      return false;
     }
   }
 
@@ -162,9 +237,11 @@ class AuthorizationState extends State<Authorization> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      digitButton(" "),
+                      supportstate
+                          ? fingerprint()
+                          : const Expanded(child: Text(' ')),
                       digitButton('0'),
-                      iconButton(Icons.backspace)
+                      backspaceButton(Icons.backspace)
                     ],
                   ),
                 ],
@@ -174,10 +251,16 @@ class AuthorizationState extends State<Authorization> {
               padding: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.02,
                   bottom: MediaQuery.of(context).size.height * 0.06),
-              child: const Text(
-                'Forgot Pin code?',
-                style: TextStyle(
-                    color: Color.fromRGBO(238, 111, 50, 1), fontSize: 16),
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const RegistratinPage()));
+                },
+                child: const Text(
+                  'Forgot Pin code?',
+                  style: TextStyle(
+                      color: Color.fromRGBO(238, 111, 50, 1), fontSize: 16),
+                ),
               ),
             )
           ],

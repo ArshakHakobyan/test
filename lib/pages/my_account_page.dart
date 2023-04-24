@@ -4,8 +4,10 @@ import 'package:telcell_copy/widgets/icon_images.dart';
 
 import '../widgets/wallet_page_widgets/small_icon_button.dart';
 
+// ignore: must_be_immutable
 class MyAccountPage extends StatefulWidget {
-  const MyAccountPage({super.key});
+  String? toggleForPageChoose;
+  MyAccountPage({super.key, this.toggleForPageChoose});
 
   @override
   State<MyAccountPage> createState() => MyAccountPageState();
@@ -13,6 +15,16 @@ class MyAccountPage extends StatefulWidget {
 
 class MyAccountPageState extends State<MyAccountPage> {
   String selectedButton = 'Banks';
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      if (widget.toggleForPageChoose != null) {
+        selectedButton = "My Accounts";
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

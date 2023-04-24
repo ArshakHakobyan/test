@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:telcell_copy/pages/my_account_page.dart';
+
 import 'package:telcell_copy/widgets/balance_visibility.dart';
 import 'search_page.dart';
 import 'package:telcell_copy/widgets/wallet_page_widgets/advertising_container.dart';
@@ -155,9 +157,12 @@ class _WalletPageState extends State<WalletPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         AdvertisingContainer(
+                            routeToWidget: MyAccountPage(
+                              toggleForPageChoose: 'My Account',
+                            ),
                             image: Image(
-                          image: IconImages().advertisingImage,
-                        )),
+                              image: IconImages().advertisingImage,
+                            )),
                         AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage1,

@@ -89,7 +89,7 @@ class _WalletStatusState extends State<WalletStatus> {
           MaterialPageRoute<void>(builder: (context) => const CardsPage()));
     } else {
       Navigator.of(context).push(
-          MaterialPageRoute<void>(builder: (context) => const MyAccountPage()));
+          MaterialPageRoute<void>(builder: (context) =>  MyAccountPage()));
     }
   }
 

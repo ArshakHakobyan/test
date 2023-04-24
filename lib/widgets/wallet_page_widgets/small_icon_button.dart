@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class SmallIconButton extends StatelessWidget {
+  Widget? routeToWidget;
   final Image image;
-  const SmallIconButton({key, required this.image}) : super(key: key);
+  SmallIconButton({key, required this.image, this.routeToWidget})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -26,7 +29,14 @@ class SmallIconButton extends StatelessWidget {
             color: Colors.transparent,
             child: InkWell(
               splashColor: const Color.fromRGBO(238, 111, 50, 0.2),
-              onTap: () {},
+              onTap: () {
+                if (routeToWidget != null) {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return routeToWidget!;
+                  }));
+                }
+              },
             ),
           ),
         ),

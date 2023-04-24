@@ -17,17 +17,17 @@ class MyAccountPageState extends State<MyAccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(238, 111, 50, 1),
         title: const BalanceVisibility(),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(30),
-          child: Container(
+          child: Ink(
             color: const Color.fromARGB(255, 255, 255, 255),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Expanded(
                   child: Container(
+                    height: 42,
                     decoration: BoxDecoration(
                         border: Border(
                             bottom: BorderSide(
@@ -36,45 +36,43 @@ class MyAccountPageState extends State<MyAccountPage> {
                           : Colors.white,
                       width: 3,
                     ))),
-                    child: TextButton(
-                        onPressed: () {
+                    child: InkWell(
+                        onTap: () {
                           setState(() {
                             selectedButton = 'Banks';
                           });
                         },
-                        style: ButtonStyle(
-                          visualDensity: VisualDensity.compact,
-                          padding: MaterialStateProperty.all(EdgeInsets.zero),
-                        ),
-                        child: Text("Banks",
-                            style: selectedButton == 'Banks'
-                                ? const TextStyle(color: Colors.black)
-                                : const TextStyle(color: Colors.grey))),
+                        child: Center(
+                          child: Text("Banks",
+                              style: selectedButton == 'Banks'
+                                  ? const TextStyle(color: Colors.black)
+                                  : const TextStyle(color: Colors.grey)),
+                        )),
                   ),
                 ),
                 Expanded(
-                  child: Container(
+                  child: Ink(
+                    height: 42,
                     decoration: BoxDecoration(
                         border: Border(
                             bottom: BorderSide(
-                      color: selectedButton == 'My Account'
+                      color: selectedButton == 'My Accounts'
                           ? const Color.fromRGBO(238, 111, 50, 1)
                           : Colors.white,
                       width: 3,
                     ))),
-                    child: TextButton(
-                      onPressed: () {
+                    child: InkWell(
+                      onTap: () {
                         setState(() {
-                          selectedButton = 'My Account';
+                          selectedButton = 'My Accounts';
                         });
                       },
-                      style: const ButtonStyle(
-                        visualDensity: VisualDensity.compact,
+                      child: Center(
+                        child: Text("My Accounts",
+                            style: selectedButton == 'My Accounts'
+                                ? const TextStyle(color: Colors.black)
+                                : const TextStyle(color: Colors.grey)),
                       ),
-                      child: Text("My Account",
-                          style: selectedButton == 'My Account'
-                              ? const TextStyle(color: Colors.black)
-                              : const TextStyle(color: Colors.grey)),
                     ),
                   ),
                 ),
@@ -82,6 +80,7 @@ class MyAccountPageState extends State<MyAccountPage> {
             ),
           ),
         ),
+        backgroundColor: const Color.fromRGBO(238, 111, 50, 1),
       ),
       body: selectedButton == 'Banks' ? const Banks() : const Myaccounts(),
     );
@@ -108,14 +107,14 @@ class Banks extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: SmallIconButton(
                         image: Image(
-                      image: IconImages().iconImage,
+                      image: IconImages().bankImage1,
                     )),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SmallIconButton(
                         image: Image(
-                      image: IconImages().iconImage,
+                      image: IconImages().bankImage2,
                     )),
                   ),
                 ],

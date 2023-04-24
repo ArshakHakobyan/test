@@ -28,4 +28,7 @@ class IconImages {
   final backgroundImage =
       const AssetImage('assets/congratulations_background.jpg');
   final telcellLogoText = const AssetImage('assets/telcelllogotext.png');
+
+  final bankImage1 = const AssetImage('assets/bank1.png');
+  final bankImage2 = const AssetImage('assets/bank2.png');
 }

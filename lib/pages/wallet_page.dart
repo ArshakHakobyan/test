@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:telcell_copy/pages/my_account_page.dart';
+import 'package:telcell_copy/pages/replanish_page.dart';
 
 import 'package:telcell_copy/widgets/balance_visibility.dart';
 import 'search_page.dart';
@@ -111,7 +112,12 @@ class _WalletPageState extends State<WalletPage> {
                           minWidth: 0,
                           height: 0,
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(builder: (context) {
+                                return const ReplanishPage();
+                              }));
+                            },
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color.fromRGBO(246, 246, 247, 0.3),
@@ -153,9 +159,12 @@ class _WalletPageState extends State<WalletPage> {
                   //
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
+                    //old verision of adversting scroll view need Update!!!
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        const SizedBox(
+                          width: 10,
+                        ),
                         AdvertisingContainer(
                             routeToWidget: MyAccountPage(
                               toggleForPageChoose: 'My Account',
@@ -163,50 +172,86 @@ class _WalletPageState extends State<WalletPage> {
                             image: Image(
                               image: IconImages().advertisingImage,
                             )),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage1,
                         )),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage2,
                         )),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage3,
                         )),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage4,
                         )),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage5,
                         )),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage6,
                         )),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage7,
                         )),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage8,
                         )),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage9,
                         )),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage10,
                         )),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         AdvertisingContainer(
                             image: Image(
                           image: IconImages().advertisingImage11,
                         )),
+                        const SizedBox(
+                          width: 10,
+                        ),
                       ],
                     ),
                   ),
@@ -227,9 +272,10 @@ class _WalletPageState extends State<WalletPage> {
                   spacing: 15,
                   children: [
                     SmallIconButton(
+                        routeToWidget: const ReplanishPage(),
                         image: Image(
-                      image: IconImages().iconImage,
-                    )),
+                          image: IconImages().iconImage,
+                        )),
                     SmallIconButton(
                         image: Image(
                       image: IconImages().iconImage1,

@@ -31,4 +31,36 @@ class IconImages {
 
   final bankImage1 = const AssetImage('assets/bank1.png');
   final bankImage2 = const AssetImage('assets/bank2.png');
+
+  final troughBranches = const AssetImage('assets/throughbranches.png');
+  final troughTerminals = const AssetImage('assets/troughterminals.png');
+  final requestfrom = const AssetImage('assets/requestfromanother.png');
+  final fromattachedcard = const AssetImage('assets/fromattachedcard.png');
+  final viaLoan = const AssetImage('assets/vialoan.png');
+  final viaBankingCard = const AssetImage('assets/viabanckingcards.png');
+  final frombookmakeraccount = const AssetImage('assets/frombookmaker.png');
+
+  final List<AssetImage> advertisingImages = const [
+    AssetImage('assets/Untitled.png'),
+    AssetImage('assets/Untitled1.png'),
+    AssetImage('assets/Untitled2.png'),
+    AssetImage('assets/Untitled3.png'),
+    AssetImage('assets/Untitled4.png'),
+    AssetImage('assets/Untitled5.png'),
+    AssetImage('assets/Untitled6.png'),
+    AssetImage('assets/Untitled7.png'),
+    AssetImage('assets/Untitled8.png'),
+    AssetImage('assets/Untitled9.png'),
+    AssetImage('assets/Untitled10.png'),
+    AssetImage('assets/Untitled11.png'),
+  ];
+  final List<AssetImage> replanishmentPageImages = const [
+    AssetImage('assets/throughbranches.png'),
+    AssetImage('assets/troughterminals.png'),
+    AssetImage('assets/requestfromanother.png'),
+    AssetImage('assets/fromattachedcard.png'),
+    AssetImage('assets/vialoan.png'),
+    AssetImage('assets/viabanckingcards.png'),
+    AssetImage('assets/frombookmaker.png'),
+  ];
 }

@@ -12,7 +12,7 @@ class AdvertisingContainer extends StatelessWidget {
     return Stack(
       children: [
         Container(
-            margin: const EdgeInsets.only(left: 10),
+            //margin: const EdgeInsets.only(left: 10),
             clipBehavior: Clip.hardEdge,
             decoration: const BoxDecoration(
                 //color: Color.fromRGBO(8, 0, 0, 0.2),

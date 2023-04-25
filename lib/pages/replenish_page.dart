@@ -5,15 +5,15 @@ import '../widgets/icon_images.dart';
 import '../widgets/wallet_page_widgets/advertising_container.dart';
 import '../widgets/wallet_page_widgets/small_icon_button.dart';
 
-class ReplanishPage extends StatefulWidget {
-  const ReplanishPage({super.key});
+class ReplenishPage extends StatefulWidget {
+  const ReplenishPage({super.key});
   @override
-  State<ReplanishPage> createState() {
-    return ReplanishPageState();
+  State<ReplenishPage> createState() {
+    return ReplenishPageState();
   }
 }
 
-class ReplanishPageState extends State<ReplanishPage> {
+class ReplenishPageState extends State<ReplenishPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +67,7 @@ class ReplanishPageState extends State<ReplanishPage> {
           ),
           //For flex
           const Expanded(flex: 1, child: SizedBox()),
-          Container(
+          SizedBox(
             height: MediaQuery.of(context).size.height * 0.55,
             width: MediaQuery.of(context).size.width * 0.9,
             child: Wrap(
@@ -76,10 +76,10 @@ class ReplanishPageState extends State<ReplanishPage> {
               spacing: 15,
               direction: Axis.horizontal,
               children: List.generate(
-                  IconImages().replanishmentPageImages.length,
+                  IconImages().replenishmentPageImages.length,
                   (index) => SmallIconButton(
                       image: Image(
-                          image: IconImages().replanishmentPageImages[index]))),
+                          image: IconImages().replenishmentPageImages[index]))),
             ),
           ),
           const Expanded(flex: 2, child: SizedBox()),

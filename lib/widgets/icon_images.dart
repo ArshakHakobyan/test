@@ -54,7 +54,7 @@ class IconImages {
     AssetImage('assets/Untitled10.png'),
     AssetImage('assets/Untitled11.png'),
   ];
-  final List<AssetImage> replanishmentPageImages = const [
+  final List<AssetImage> replenishmentPageImages = const [
     AssetImage('assets/throughbranches.png'),
     AssetImage('assets/troughterminals.png'),
     AssetImage('assets/requestfromanother.png'),

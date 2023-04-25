@@ -25,195 +25,69 @@ class ThreeFileldWidget extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(top: 16),
       width: MediaQuery.of(context).size.width * 0.9,
-      height: hasAmountField ? 200 : 180,
+      height: hasAmountField ? 200 : 195,
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(5)),
       child: Column(
         children: [
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  //crossAxisAlignment: ,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                      child: InkWell(
-                        child: Icon(
-                          firstIcon,
-                          color: Colors.grey,
-                          size: 30,
-                        ),
+          ListTile(
+            horizontalTitleGap: 0,
+            dense: true,
+            onTap: () {},
+            trailing: const Icon(Icons.arrow_forward_ios),
+            leading: Icon(firstIcon),
+            subtitle: hasAmountField
+                ? Row(
+                    children: const [
+                      Text(
+                        "  Amount:",
+                        style: TextStyle(color: Colors.grey),
                       ),
-                    ),
-                    Text(
-                      //' Finance',
-                      firstTitle,
-                      style: const TextStyle(
-                        fontSize: 17,
-                      ),
-                    ),
-                    const Expanded(
-                      child: SizedBox(
-                        width: 1,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: InkWell(
-                          child: Icon(
-                        Icons.arrow_forward_ios,
-                        size: hasAmountField ? 14 : 16,
-                        color: Colors.grey,
-                      )),
-                    ),
-                  ],
-                ),
-                hasAmountField
-                    ? Padding(
-                        padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.width * 0.13),
-                        child: Row(
-                          children: const [
-                            Text(
-                              "Amount:",
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            Text("0"),
-                          ],
-                        ),
-                      )
-                    : const SizedBox()
-              ],
-            ),
+                      Text("0"),
+                    ],
+                  )
+                : const SizedBox(),
+            title: Text(firstTitle, style: const TextStyle(fontSize: 17)),
           ),
-          const Divider(
-            height: 3,
-            color: Color.fromARGB(255, 236, 235, 235),
+          const Divider(height: 1),
+          ListTile(
+            horizontalTitleGap: 0,
+            dense: true,
+            onTap: () {},
+            trailing: const Icon(Icons.arrow_forward_ios),
+            leading: Icon(secondIcon),
+            subtitle: hasAmountField
+                ? Row(
+                    children: const [
+                      Text(
+                        "  Amount:",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      Text("0"),
+                    ],
+                  )
+                : const SizedBox(),
+            title: Text(secondTitle, style: const TextStyle(fontSize: 17)),
           ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                      child: InkWell(
-                        child: Icon(
-                          //Icons.history,
-                          secondIcon,
-                          color: Colors.grey,
-                          size: 30,
-                        ),
+          const Divider(height: 1),
+          ListTile(
+            horizontalTitleGap: 0,
+            dense: true,
+            onTap: () {},
+            trailing: const Icon(Icons.arrow_forward_ios),
+            leading: Icon(thirdIcon),
+            subtitle: hasAmountField
+                ? Row(
+                    children: const [
+                      Text(
+                        "  Amount:",
+                        style: TextStyle(color: Colors.grey),
                       ),
-                    ),
-                    Text(
-                      //' Payments History',
-                      secondTitle,
-                      style: const TextStyle(
-                        fontSize: 17,
-                      ),
-                    ),
-                    const Expanded(
-                      child: SizedBox(
-                        width: 1,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: InkWell(
-                          onTap: () {},
-                          child: Icon(
-                            Icons.arrow_forward_ios,
-                            size: hasAmountField ? 14 : 16,
-                            color: Colors.grey,
-                          )),
-                    ),
-                  ],
-                ),
-                hasAmountField
-                    ? Padding(
-                        padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.width * 0.13),
-                        child: Row(
-                          children: const [
-                            Text(
-                              "Amount:",
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            Text("0"),
-                          ],
-                        ),
-                      )
-                    : const SizedBox(
-                        height: 0,
-                      )
-              ],
-            ),
-          ),
-          const Divider(
-            height: 3,
-            color: Color.fromARGB(255, 236, 235, 235),
-          ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  //crossAxisAlignment: ,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                      child: InkWell(
-                        child: Icon(
-                          thirdIcon,
-                          color: Colors.grey,
-                          size: 30,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      //' Payment invoices',
-                      thirdTitle,
-                      style: const TextStyle(
-                        fontSize: 17,
-                      ),
-                    ),
-                    const Expanded(
-                      child: SizedBox(
-                        width: 1,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: InkWell(
-                          child: Icon(
-                        Icons.arrow_forward_ios,
-                        size: hasAmountField ? 14 : 16,
-                        color: Colors.grey,
-                      )),
-                    ),
-                  ],
-                ),
-                hasAmountField
-                    ? Padding(
-                        padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.width * 0.13),
-                        child: Row(
-                          children: const [
-                            Text(
-                              "Amount:",
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            Text("0"),
-                          ],
-                        ),
-                      )
-                    : const SizedBox()
-              ],
-            ),
+                      Text("0"),
+                    ],
+                  )
+                : const SizedBox(),
+            title: Text(thirdTitle, style: const TextStyle(fontSize: 17)),
           ),
         ],
       ),

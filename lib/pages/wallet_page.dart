@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:telcell_copy/pages/my_account_page.dart';
-import 'package:telcell_copy/pages/replanish_page.dart';
+import 'package:telcell_copy/pages/replenish_page.dart';
 
 import 'package:telcell_copy/widgets/balance_visibility.dart';
 import 'search_page.dart';
@@ -115,7 +115,7 @@ class _WalletPageState extends State<WalletPage> {
                             onPressed: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
-                                return const ReplanishPage();
+                                return const ReplenishPage();
                               }));
                             },
                             style: ButtonStyle(
@@ -159,7 +159,7 @@ class _WalletPageState extends State<WalletPage> {
                   //
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
-                    //old verision of adversting scroll view need Update!!!
+                    //old version of advertising scroll view need Update!!!
                     child: Row(
                       children: [
                         const SizedBox(
@@ -272,7 +272,7 @@ class _WalletPageState extends State<WalletPage> {
                   spacing: 15,
                   children: [
                     SmallIconButton(
-                        routeToWidget: const ReplanishPage(),
+                        routeToWidget: const ReplenishPage(),
                         image: Image(
                           image: IconImages().iconImage,
                         )),

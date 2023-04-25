@@ -1,12 +1,23 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:telcell_copy/pages/raise_page.dart';
 import 'package:telcell_copy/widgets/icon_images.dart';
+import 'package:image_picker/image_picker.dart';
 
-class Avatar extends StatelessWidget {
+class Avatar extends StatefulWidget {
   const Avatar({
     super.key,
   });
 
+  @override
+  State<Avatar> createState() => AvatarState();
+}
+
+class AvatarState extends State<Avatar> {
+  File? pickedImage;
+
+  final ImagePicker picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,30 +51,165 @@ class Avatar extends StatelessWidget {
                           color: const Color.fromARGB(255, 226, 226, 226),
                           width: 1,
                         )),
-                    child: const Icon(
-                      Icons.person,
-                      size: 16,
-                      color: Color.fromARGB(255, 214, 213, 213),
-                    ),
+                    child: pickedImage != null
+                        ? ClipOval(
+                            child: Image.file(
+                              pickedImage!,
+                              width: 70,
+                              height: 70,
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                        : const Icon(
+                            Icons.person,
+                            size: 16,
+                            color: Color.fromARGB(255, 214, 213, 213),
+                          ),
                   ),
                   Positioned(
                       right: 3,
                       bottom: 3,
                       //Rounded Container for edit button
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: const Color.fromRGBO(238, 111, 50, 1),
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: const Color.fromARGB(255, 226, 226, 226),
-                              width: 1,
-                            )),
-                        height: 20,
-                        width: 20,
-                        child: const Icon(
-                          Icons.edit_outlined,
-                          size: 14,
-                          color: Color.fromRGBO(255, 255, 255, 1),
+                      child: InkWell(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(10.0)),
+                            ),
+                            builder: (BuildContext context) {
+                              return Container(
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10))),
+                                height: 195.0,
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      contentPadding: EdgeInsets.zero,
+                                      dense: true,
+                                      onTap: () async {
+                                        final pickedFile =
+                                            await picker.pickImage(
+                                                source: ImageSource.camera);
+                                        if (pickedFile != null) {
+                                          setState(() {
+                                            pickedImage = File(pickedFile.path);
+                                            Navigator.pop(context);
+                                          });
+                                        }
+                                      },
+                                      title: const Text(
+                                        'Camera',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: Color.fromRGBO(
+                                                238, 111, 50, 1)),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    const Divider(
+                                        height: 1,
+                                        color:
+                                            Color.fromARGB(255, 156, 146, 146)),
+                                    ListTile(
+                                      dense: true,
+                                      onTap: () async {
+                                        final pickedFile =
+                                            await picker.pickImage(
+                                                source: ImageSource.gallery);
+                                        if (pickedFile != null) {
+                                          setState(() {
+                                            pickedImage = File(pickedFile.path);
+                                            Navigator.pop(context);
+                                          });
+                                        }
+                                      },
+                                      title: const Text(
+                                        'Choose from gallery',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: Color.fromRGBO(
+                                                238, 111, 50, 1)),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    const Divider(
+                                        height: 1,
+                                        color:
+                                            Color.fromARGB(255, 154, 144, 144)),
+                                    Container(
+                                      color: const Color.fromRGBO(
+                                          253, 237, 236, 1),
+                                      child: ListTile(
+                                        dense: true,
+                                        onTap: () {
+                                          setState(() {
+                                            pickedImage = null;
+                                            Navigator.pop(context);
+                                          });
+                                        },
+                                        title: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: const [
+                                            Icon(
+                                              Icons.delete,
+                                              color: Color.fromRGBO(
+                                                  239, 83, 80, 1),
+                                            ),
+                                            Text(
+                                              'Delete avatar',
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Color.fromRGBO(
+                                                      239, 83, 80, 1)),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    const Divider(
+                                        height: 1,
+                                        color:
+                                            Color.fromARGB(255, 159, 152, 152)),
+                                    ListTile(
+                                      dense: true,
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      title: const Text(
+                                        'Cancel',
+                                        style: TextStyle(
+                                            fontSize: 18, color: Colors.grey),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: const Color.fromRGBO(238, 111, 50, 1),
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: const Color.fromARGB(255, 226, 226, 226),
+                                width: 1,
+                              )),
+                          height: 20,
+                          width: 20,
+                          child: const Icon(
+                            Icons.edit_outlined,
+                            size: 14,
+                            color: Color.fromRGBO(255, 255, 255, 1),
+                          ),
                         ),
                       ))
                 ],

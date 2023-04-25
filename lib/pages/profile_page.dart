@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../widgets/profile_page_widgets/account_field_widget.dart';
 import 'package:telcell_copy/widgets/profile_page_widgets/avatar_widget.dart';
 import '../widgets/profile_page_widgets/cards_and_fines_field.dart';

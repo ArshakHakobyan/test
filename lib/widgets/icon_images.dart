@@ -41,6 +41,10 @@ class IconImages {
   final frombookmakeraccount = const AssetImage('assets/frombookmaker.png');
 
   final List<AssetImage> advertisingImages = const [
+    AssetImage('assets/Untitled8.png'),
+    AssetImage('assets/Untitled9.png'),
+    AssetImage('assets/Untitled10.png'),
+    AssetImage('assets/Untitled11.png'),
     AssetImage('assets/Untitled.png'),
     AssetImage('assets/Untitled1.png'),
     AssetImage('assets/Untitled2.png'),
@@ -49,10 +53,6 @@ class IconImages {
     AssetImage('assets/Untitled5.png'),
     AssetImage('assets/Untitled6.png'),
     AssetImage('assets/Untitled7.png'),
-    AssetImage('assets/Untitled8.png'),
-    AssetImage('assets/Untitled9.png'),
-    AssetImage('assets/Untitled10.png'),
-    AssetImage('assets/Untitled11.png'),
   ];
   final List<AssetImage> replenishmentPageImages = const [
     AssetImage('assets/throughbranches.png'),

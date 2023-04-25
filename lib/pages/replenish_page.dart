@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../widgets/balance_visibility.dart';
 import '../widgets/icon_images.dart';
 import '../widgets/wallet_page_widgets/advertising_container.dart';

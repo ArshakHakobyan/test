@@ -84,7 +84,7 @@ class AddCardState extends State<AddCard> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(238, 111, 50, 1),
-        title: const BalanceVisibility(),
+        title:  BalanceVisibility(),
       ),
       body: SingleChildScrollView(
         child: Container(

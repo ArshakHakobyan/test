@@ -6,8 +6,8 @@ import 'package:telcell_copy/pages/replenish_page.dart';
 import 'package:telcell_copy/widgets/balance_visibility.dart';
 import 'search_page.dart';
 import 'package:telcell_copy/widgets/wallet_page_widgets/advertising_container.dart';
-import 'package:telcell_copy/widgets/wallet_page_widgets/small_icon_button.dart';
-import 'notifications.dart';
+import 'package:telcell_copy/widgets/wallet_page_widgets/icon_button.dart';
+import 'notifications_page.dart';
 import 'package:telcell_copy/widgets/icon_images.dart';
 
 class WalletPage extends StatefulWidget {
@@ -96,7 +96,7 @@ class _WalletPageState extends State<WalletPage> {
                               color: Color.fromRGBO(248, 192, 162, 1),
                               fontSize: 13),
                         ),
-                        const BalanceVisibility(),
+                         BalanceVisibility(),
 
                         //unlocked ballance row
 

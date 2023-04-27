@@ -1,10 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:telcell_copy/pages/raise_page.dart';
 import 'package:telcell_copy/widgets/icon_images.dart';
 import 'package:image_picker/image_picker.dart';
 
+// ignore: must_be_immutable
 class Avatar extends StatefulWidget {
   const Avatar({
     super.key,
@@ -15,6 +16,13 @@ class Avatar extends StatefulWidget {
 }
 
 class AvatarState extends State<Avatar> {
+  String? idNumber = '10101010';
+  void updateIdnumber() {
+    setState(() {
+      idNumber = '20202020';
+    });
+  }
+
   File? pickedImage;
 
   final ImagePicker picker = ImagePicker();
@@ -246,20 +254,27 @@ class AvatarState extends State<Avatar> {
                   Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Row(
-                      children: const [
-                        Text(
+                      children: [
+                        const Text(
                           'Id number:   ',
                           style: TextStyle(color: Colors.grey),
                         ),
                         Text(
-                          '999999',
-                          style: TextStyle(fontSize: 16),
+                          idNumber!,
+                          style: const TextStyle(fontSize: 16),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         InkWell(
-                          child: Icon(
+                          onTap: () {
+                            Clipboard.setData(ClipboardData(text: idNumber!));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text('ID number is copied'),
+                            ));
+                          },
+                          child: const Icon(
                             Icons.copy_all_rounded,
                             size: 14,
                             color: Colors.grey,

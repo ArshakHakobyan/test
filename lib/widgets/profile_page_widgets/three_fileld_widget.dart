@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class ThreeFileldWidget extends StatelessWidget {
+  Widget? firstFieldroute;
+  Widget? secondFieldroute;
+  Widget? thirdFieldroute;
   bool hasAmountField = false;
   IconData firstIcon;
   IconData secondIcon;
@@ -9,16 +12,18 @@ class ThreeFileldWidget extends StatelessWidget {
   String firstTitle;
   String secondTitle;
   String thirdTitle;
-  ThreeFileldWidget({
-    super.key,
-    required this.hasAmountField,
-    required this.firstIcon,
-    required this.secondIcon,
-    required this.thirdIcon,
-    required this.firstTitle,
-    required this.secondTitle,
-    required this.thirdTitle,
-  });
+  ThreeFileldWidget(
+      {super.key,
+      required this.hasAmountField,
+      required this.firstIcon,
+      required this.secondIcon,
+      required this.thirdIcon,
+      required this.firstTitle,
+      required this.secondTitle,
+      required this.thirdTitle,
+      this.firstFieldroute,
+      this.secondFieldroute,
+      this.thirdFieldroute});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +38,14 @@ class ThreeFileldWidget extends StatelessWidget {
           ListTile(
             horizontalTitleGap: 0,
             dense: true,
-            onTap: () {},
+            onTap: () {
+              if (firstFieldroute != null) {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return firstFieldroute!;
+                }));
+              }
+            },
             trailing: const Icon(Icons.arrow_forward_ios),
             leading: Icon(firstIcon),
             subtitle: hasAmountField
@@ -53,7 +65,14 @@ class ThreeFileldWidget extends StatelessWidget {
           ListTile(
             horizontalTitleGap: 0,
             dense: true,
-            onTap: () {},
+            onTap: () {
+              if (secondFieldroute != null) {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return secondFieldroute!;
+                }));
+              }
+            },
             trailing: const Icon(Icons.arrow_forward_ios),
             leading: Icon(secondIcon),
             subtitle: hasAmountField
@@ -73,7 +92,14 @@ class ThreeFileldWidget extends StatelessWidget {
           ListTile(
             horizontalTitleGap: 0,
             dense: true,
-            onTap: () {},
+            onTap: () {
+              if (thirdFieldroute != null) {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return thirdFieldroute!;
+                }));
+              }
+            },
             trailing: const Icon(Icons.arrow_forward_ios),
             leading: Icon(thirdIcon),
             subtitle: hasAmountField

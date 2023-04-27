@@ -36,7 +36,7 @@ class QrCodePageState extends State<QrCodePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const BalanceVisibility(),
+          title:  BalanceVisibility(),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(30),
             child: Ink(

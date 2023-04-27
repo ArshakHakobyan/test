@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:telcell_copy/widgets/balance_visibility.dart';
 import '../widgets/db.dart';
 import '../widgets/icon_images.dart';
-import 'add_credit_card.dart';
+import 'add_credit_card_page.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
 class CardsPage extends StatefulWidget {
@@ -73,7 +73,7 @@ class CardsPageState extends State<CardsPage> {
         backgroundColor: const Color.fromRGBO(240, 242, 244, 1),
         appBar: AppBar(
             backgroundColor: const Color.fromRGBO(238, 111, 50, 1),
-            title: const BalanceVisibility()),
+            title:  BalanceVisibility()),
         body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,

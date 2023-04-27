@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/balance_visibility.dart';
 import '../widgets/icon_images.dart';
 import '../widgets/wallet_page_widgets/advertising_container.dart';
-import '../widgets/wallet_page_widgets/small_icon_button.dart';
+import '../widgets/wallet_page_widgets/icon_button.dart';
 
 class ReplenishPage extends StatefulWidget {
   const ReplenishPage({super.key});
@@ -17,7 +17,7 @@ class ReplenishPageState extends State<ReplenishPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const BalanceVisibility(),
+        title:  BalanceVisibility(),
         backgroundColor: const Color.fromRGBO(238, 111, 50, 1),
       ),
       body: Column(

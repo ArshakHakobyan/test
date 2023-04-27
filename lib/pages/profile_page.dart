@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:telcell_copy/pages/payments_history_page.dart';
 import '../widgets/profile_page_widgets/account_field_widget.dart';
 import 'package:telcell_copy/widgets/profile_page_widgets/avatar_widget.dart';
 import '../widgets/profile_page_widgets/cards_and_fines_field.dart';
@@ -54,6 +55,7 @@ class ProfilePageState extends State<ProfilePage> {
                 firstTitle: ' Finance',
                 secondTitle: ' Payments History',
                 thirdTitle: ' Payment invoices',
+                secondFieldroute: const PaymentsHistoryPage(),
               ),
               ThreeFileldWidget(
                 hasAmountField: true,

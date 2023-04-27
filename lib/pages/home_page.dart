@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'authorization.dart';
+import 'authorization_page.dart';
 import 'credit_cards_page.dart';
 import 'crypto_value_page.dart';
 import 'profile_page.dart';

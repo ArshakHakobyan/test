@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:telcell_copy/widgets/balance_visibility.dart';
 import 'package:telcell_copy/widgets/icon_images.dart';
 
-import '../widgets/wallet_page_widgets/small_icon_button.dart';
+import '../widgets/wallet_page_widgets/icon_button.dart';
 
 // ignore: must_be_immutable
 class MyAccountPage extends StatefulWidget {
@@ -29,7 +29,7 @@ class MyAccountPageState extends State<MyAccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const BalanceVisibility(),
+        title:  BalanceVisibility(),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(30),
           child: Ink(

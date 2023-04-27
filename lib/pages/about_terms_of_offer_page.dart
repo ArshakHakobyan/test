@@ -9,7 +9,7 @@ class AboutTermsOfOffer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const BalanceVisibility(),
+        title:  BalanceVisibility(),
         backgroundColor: const Color.fromRGBO(238, 111, 50, 1),
       ),
       body: Container(

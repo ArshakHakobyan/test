@@ -18,7 +18,7 @@ class NotificationsState extends State<RaisePage> {
         appBar: AppBar(
             iconTheme: const IconThemeData(color: Colors.white),
             backgroundColor: const Color.fromRGBO(238, 111, 50, 1),
-            title: const BalanceVisibility()),
+            title:  BalanceVisibility()),
         body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,

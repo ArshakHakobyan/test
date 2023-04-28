@@ -7,7 +7,7 @@ import 'package:flutter/services.dart' show rootBundle;
 
 class DatabaseHelper {
   static const _databaseName = "telCell.db";
-  static const _databaseVersion = 1;
+  static const _databaseVersion = 2;
 
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();

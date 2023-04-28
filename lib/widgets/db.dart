@@ -22,27 +22,35 @@ class DatabaseHelper {
   }
 
   Future<Database> _initDatabase() async {
-    //
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, _databaseName);
-
-    //
     bool fileExists = await databaseExists(path);
 
-    // copy from assets
-    if (!fileExists) await _copyDatabaseFromAssets(path);
+    if (!fileExists || _databaseVersion != await _getDatabaseVersion(path)) {
+      await deleteDatabase(path);
+      await _copyDatabaseFromAssets(path);
+    }
 
-    // open database
-    return await openDatabase(path,
-        version: _databaseVersion, onCreate: _onCreate);
+    return openDatabase(path, version: _databaseVersion, onCreate: _onCreate);
   }
 
-  // copy from assets method
   Future<void> _copyDatabaseFromAssets(String path) async {
     ByteData data = await rootBundle.load(join("assets", _databaseName));
     List<int> bytes =
         data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
     await File(path).writeAsBytes(bytes);
+  }
+
+  Future<int?> _getDatabaseVersion(String path) async {
+    if (await databaseExists(path)) {
+      Database db = await openDatabase(path);
+      List<Map<String, dynamic>> version =
+          await db.rawQuery('PRAGMA user_version;');
+      await db.close();
+      return version[0]['user_version'];
+    } else {
+      return null;
+    }
   }
 
   Future<void> _onCreate(Database db, int version) async {
@@ -63,7 +71,11 @@ class DatabaseHelper {
   }
 
   // Read from database
-  Future<List<Map<String, dynamic>>> readDataFromDatabase() async {
+  Future<List<Map<String, dynamic>>> readDataFromDatabase({bool? date}) async {
+    if (date != null) {
+      Database db = await instance.database;
+      return await db.query('dateOfP');
+    }
     Database db = await instance.database;
     return await db.query('credit_cards');
   }

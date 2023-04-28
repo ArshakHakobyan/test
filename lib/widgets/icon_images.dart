@@ -63,4 +63,6 @@ class IconImages {
     AssetImage('assets/viabanckingcards.png'),
     AssetImage('assets/frombookmaker.png'),
   ];
+
+  final tImage = const AssetImage('assets/t.png');
 }

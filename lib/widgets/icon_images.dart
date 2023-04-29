@@ -65,4 +65,5 @@ class IconImages {
   ];
 
   final tImage = const AssetImage('assets/t.png');
+  final terminalImage = const AssetImage('assets/terminalImage.png');
 }

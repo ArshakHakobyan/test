@@ -46,6 +46,7 @@ dependencies:
   scan: ^1.6.0
   flutter_credit_card: ^3.0.6
   local_auth: ^2.1.6
+  table_calendar: ^3.0.9
  
 flutter_icons:
   android: true

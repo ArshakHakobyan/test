@@ -7,7 +7,7 @@ import 'package:flutter/services.dart' show rootBundle;
 
 class DatabaseHelper {
   static const _databaseName = "telCell.db";
-  static const _databaseVersion = 2;
+  static const _databaseVersion = 3;
 
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
@@ -71,10 +71,14 @@ class DatabaseHelper {
   }
 
   // Read from database
-  Future<List<Map<String, dynamic>>> readDataFromDatabase({bool? date}) async {
-    if (date != null) {
+  Future<List<Map<String, dynamic>>> readDataFromDatabase(
+      {bool? walletDb, bool? terminalDb}) async {
+    if (walletDb != null) {
       Database db = await instance.database;
       return await db.query('dateOfP');
+    } else if (terminalDb != null) {
+      Database db = await instance.database;
+      return await db.query('dateOfPaymentTerminal');
     }
     Database db = await instance.database;
     return await db.query('credit_cards');

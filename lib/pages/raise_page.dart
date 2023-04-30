@@ -18,7 +18,9 @@ class NotificationsState extends State<RaisePage> {
         appBar: AppBar(
             iconTheme: const IconThemeData(color: Colors.white),
             backgroundColor: const Color.fromRGBO(238, 111, 50, 1),
-            title:  BalanceVisibility()),
+            title: BalanceVisibility(
+              isRouted: true,
+            )),
         body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
@@ -88,8 +90,8 @@ class _WalletStatusState extends State<WalletStatus> {
       Navigator.of(context).push(
           MaterialPageRoute<void>(builder: (context) => const CardsPage()));
     } else {
-      Navigator.of(context).push(
-          MaterialPageRoute<void>(builder: (context) =>  MyAccountPage()));
+      Navigator.of(context)
+          .push(MaterialPageRoute<void>(builder: (context) => MyAccountPage()));
     }
   }
 

@@ -332,100 +332,6 @@ class TelcellWalletState extends State<TelcellWallet> {
   }
 }
 
-class BuildFromDbdata extends StatelessWidget {
-  final List<Map> mapsOfPayments;
-  final ImageProvider<Object> image;
-  const BuildFromDbdata({
-    super.key,
-    required this.mapsOfPayments,
-    required this.image,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: List.generate(mapsOfPayments.length, (index) {
-        final bool sameDay = index > 0 &&
-            mapsOfPayments[index]['day'] == mapsOfPayments[index - 1]['day'];
-
-        return Column(
-          children: [
-            if (!sameDay) // esli data ne povtoriaetsia, sozdaem data v etoi stroke
-              Padding(
-                padding: const EdgeInsets.only(left: 6, bottom: 10),
-                child: Row(
-                  children: [
-                    Text(
-                      mapsOfPayments[index]['day'],
-                      style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 84, 84, 84)),
-                    ),
-                  ],
-                ),
-              ),
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(5)),
-              margin: const EdgeInsets.only(bottom: 10),
-              width: MediaQuery.of(context).size.width * 0.95,
-              height: 67,
-              child: ListTile(
-                horizontalTitleGap: 0,
-                //leading Icon
-                leading: Column(
-                  children: [
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    SizedBox(
-                      height: 27,
-                      child: Image(image: image),
-                    ),
-                  ],
-                ),
-                title: Text(
-                  mapsOfPayments[index]['what_service'],
-                  style: const TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w500),
-                ),
-                subtitle: Text(
-                  mapsOfPayments[index]['phone_number'],
-                  style: const TextStyle(color: Colors.grey),
-                ),
-                trailing: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10, bottom: 3),
-                      child: Text(
-                        mapsOfPayments[index]['amount'] + " AMD",
-                        style: const TextStyle(
-                            color: Color.fromRGBO(239, 83, 80, 1),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: const Text(
-                        'Repeat',
-                        style: TextStyle(
-                            color: Color.fromRGBO(239, 83, 80, 1),
-                            fontSize: 14),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        );
-      }),
-    );
-  }
-}
-
 class Terminal extends StatefulWidget {
   const Terminal({super.key});
 
@@ -568,6 +474,100 @@ class _AccountsState extends State<Accounts> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class BuildFromDbdata extends StatelessWidget {
+  final List<Map> mapsOfPayments;
+  final ImageProvider<Object> image;
+  const BuildFromDbdata({
+    super.key,
+    required this.mapsOfPayments,
+    required this.image,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: List.generate(mapsOfPayments.length, (index) {
+        final bool sameDay = index > 0 &&
+            mapsOfPayments[index]['day'] == mapsOfPayments[index - 1]['day'];
+
+        return Column(
+          children: [
+            if (!sameDay) // esli data ne povtoriaetsia, sozdaem data v etoi stroke
+              Padding(
+                padding: const EdgeInsets.only(left: 6, bottom: 10),
+                child: Row(
+                  children: [
+                    Text(
+                      mapsOfPayments[index]['day'],
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 84, 84, 84)),
+                    ),
+                  ],
+                ),
+              ),
+            Container(
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(5)),
+              margin: const EdgeInsets.only(bottom: 10),
+              width: MediaQuery.of(context).size.width * 0.95,
+              height: 67,
+              child: ListTile(
+                horizontalTitleGap: 0,
+                //leading Icon
+                leading: Column(
+                  children: [
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    SizedBox(
+                      height: 27,
+                      child: Image(image: image),
+                    ),
+                  ],
+                ),
+                title: Text(
+                  mapsOfPayments[index]['what_service'],
+                  style: const TextStyle(
+                      fontSize: 14, fontWeight: FontWeight.w500),
+                ),
+                subtitle: Text(
+                  mapsOfPayments[index]['phone_number'],
+                  style: const TextStyle(color: Colors.grey),
+                ),
+                trailing: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10, bottom: 3),
+                      child: Text(
+                        mapsOfPayments[index]['amount'] + " AMD",
+                        style: const TextStyle(
+                            color: Color.fromRGBO(239, 83, 80, 1),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: const Text(
+                        'Repeat',
+                        style: TextStyle(
+                            color: Color.fromRGBO(239, 83, 80, 1),
+                            fontSize: 14),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        );
+      }),
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'authorization_page.dart';
 import 'credit_cards_page.dart';
-import 'crypto_value_page.dart';
+//import 'crypto_value_page.dart';
 import 'profile_page.dart';
 import 'qr_code_page.dart';
 import 'wallet_page.dart';
@@ -28,7 +28,7 @@ class HomeScreenState extends State<HomeScreen> {
     const WalletPage(),
     const CardsPage(),
     const QrCodePage(),
-    const CryptoPage(),
+    //const CryptoPage(),
     const ProfilePage(),
   ];
   @override
@@ -56,8 +56,8 @@ class HomeScreenState extends State<HomeScreen> {
                     icon: Icon(Icons.payment), label: 'Cards'),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.qr_code_rounded), label: 'QR code'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.currency_bitcoin), label: 'BON'),
+                // BottomNavigationBarItem(
+                //     icon: Icon(Icons.currency_bitcoin), label: 'BON'),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.person_3_outlined), label: 'Profile'),
               ],

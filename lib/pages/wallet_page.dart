@@ -4,6 +4,7 @@ import 'package:telcell_copy/pages/my_account_page.dart';
 import 'package:telcell_copy/pages/replenish_page.dart';
 
 import 'package:telcell_copy/widgets/balance_visibility.dart';
+import 'package:telcell_copy/widgets/advertising_image_progress_bar.dart';
 import 'search_page.dart';
 import 'package:telcell_copy/widgets/wallet_page_widgets/advertising_container.dart';
 import 'package:telcell_copy/widgets/wallet_page_widgets/icon_button.dart';
@@ -96,7 +97,7 @@ class _WalletPageState extends State<WalletPage> {
                               color: Color.fromRGBO(248, 192, 162, 1),
                               fontSize: 13),
                         ),
-                         BalanceVisibility(),
+                        BalanceVisibility(),
 
                         //unlocked ballance row
 
@@ -162,9 +163,7 @@ class _WalletPageState extends State<WalletPage> {
                     //old version of advertising scroll view need Update!!!
                     child: Row(
                       children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
+                        const SizedBox(width: 10),
                         AdvertisingContainer(
                             routeToWidget: MyAccountPage(
                               toggleForPageChoose: 'My Account',
@@ -172,20 +171,39 @@ class _WalletPageState extends State<WalletPage> {
                             image: Image(
                               image: IconImages().advertisingImage,
                             )),
-                        const SizedBox(
-                          width: 10,
-                        ),
+                        const SizedBox(width: 10),
                         AdvertisingContainer(
+                            routeToWidget: ProgressBarAdvertising(
+                              advertisingImage: Image(
+                                image: IconImages().progressBarImage2,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                             image: Image(
-                          image: IconImages().advertisingImage1,
-                        )),
-                        const SizedBox(
-                          width: 10,
-                        ),
+                              image: IconImages().advertisingImage12,
+                            )),
+                        const SizedBox(width: 10),
                         AdvertisingContainer(
+                            routeToWidget: ProgressBarAdvertising(
+                              advertisingImage: Image(
+                                image: IconImages().progressBarImage1,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                             image: Image(
-                          image: IconImages().advertisingImage2,
-                        )),
+                              image: IconImages().advertisingImage11,
+                            )),
+                        const SizedBox(width: 10),
+                        AdvertisingContainer(
+                            routeToWidget: ProgressBarAdvertising(
+                              advertisingImage: Image(
+                                image: IconImages().progressBarImage3,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            image: Image(
+                              image: IconImages().advertisingImage2,
+                            )),
                         const SizedBox(
                           width: 10,
                         ),
@@ -247,7 +265,7 @@ class _WalletPageState extends State<WalletPage> {
                         ),
                         AdvertisingContainer(
                             image: Image(
-                          image: IconImages().advertisingImage11,
+                          image: IconImages().advertisingImage1,
                         )),
                         const SizedBox(
                           width: 10,

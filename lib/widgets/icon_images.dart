@@ -13,6 +13,7 @@ class IconImages {
   final advertisingImage9 = const AssetImage('assets/Untitled9.png');
   final advertisingImage10 = const AssetImage('assets/Untitled10.png');
   final advertisingImage11 = const AssetImage('assets/Untitled11.png');
+  final advertisingImage12 = const AssetImage('assets/advertisingImage12.png');
 
   final iconImage = const AssetImage('assets/Arrow1.png');
   final iconImage1 = const AssetImage('assets/arrow2.png');
@@ -66,4 +67,9 @@ class IconImages {
 
   final tImage = const AssetImage('assets/t.png');
   final terminalImage = const AssetImage('assets/terminalImage.png');
+
+  final progressBarImage1 = const AssetImage('assets/progresBarImage.png');
+  final progressBarImage2 = const AssetImage('assets/progressBarImage2.png');
+  final progressBarImage3 =
+      const AssetImage('assets/progressBarAdvertising3.png');
 }

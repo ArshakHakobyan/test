@@ -8,6 +8,7 @@ import '../widgets/profile_page_widgets/exit_widget.dart';
 import '../widgets/profile_page_widgets/property_tax_widget.dart';
 import '../widgets/profile_page_widgets/settings_widget.dart';
 import '../widgets/profile_page_widgets/three_fileld_widget.dart';
+import 'finance_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -55,6 +56,7 @@ class ProfilePageState extends State<ProfilePage> {
                 firstTitle: ' Finance',
                 secondTitle: ' Payments History',
                 thirdTitle: ' Payment invoices',
+                firstFieldroute: const FinancePage(),
                 secondFieldroute: const PaymentsHistoryPage(),
               ),
               ThreeFileldWidget(

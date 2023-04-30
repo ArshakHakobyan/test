@@ -13,6 +13,8 @@ class PaymentsHistoryPage extends StatefulWidget {
 }
 
 class PaymentsHistoryPageState extends State<PaymentsHistoryPage> {
+  final pageController = PageController();
+
   int pressedButtonNumber = 0;
   List<Widget> buttonToWidget = [
     const TelcellWallet(),
@@ -42,8 +44,10 @@ class PaymentsHistoryPageState extends State<PaymentsHistoryPage> {
                   child: InkWell(
                     onTap: () {
                       setState(() {
-                        //sets first buttons number
                         pressedButtonNumber = 0;
+                        pageController.animateToPage(pressedButtonNumber,
+                            duration: const Duration(milliseconds: 400),
+                            curve: Curves.easeInOut);
                       });
                     },
                     child: Container(
@@ -79,6 +83,9 @@ class PaymentsHistoryPageState extends State<PaymentsHistoryPage> {
                     onTap: () {
                       setState(() {
                         pressedButtonNumber = 1;
+                        pageController.animateToPage(pressedButtonNumber,
+                            duration: const Duration(milliseconds: 400),
+                            curve: Curves.easeInOut);
                       });
                     },
                     child: Container(
@@ -114,6 +121,9 @@ class PaymentsHistoryPageState extends State<PaymentsHistoryPage> {
                     onTap: () {
                       setState(() {
                         pressedButtonNumber = 2;
+                        pageController.animateToPage(pressedButtonNumber,
+                            duration: const Duration(milliseconds: 400),
+                            curve: Curves.easeInOut);
                       });
                     },
                     child: Container(
@@ -146,7 +156,23 @@ class PaymentsHistoryPageState extends State<PaymentsHistoryPage> {
               ],
             ),
           ),
-          buttonToWidget[pressedButtonNumber],
+          Expanded(
+            child: PageView(
+              controller: pageController,
+              onPageChanged: (int index) {
+                setState(() {
+                  pressedButtonNumber = index;
+                });
+              },
+              scrollDirection: Axis.horizontal,
+              children: [
+                buttonToWidget[0],
+                buttonToWidget[1],
+                buttonToWidget[2],
+              ],
+            ),
+          )
+          //buttonToWidget[pressedButtonNumber],
         ],
       ),
     );
@@ -188,120 +214,119 @@ class TelcellWalletState extends State<TelcellWallet> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        color: const Color.fromRGBO(240, 242, 244, 1),
-        width: MediaQuery.of(context).size.width,
-        child: ListView(
-          children: [
-            Column(
-              children: [
-                // Total This month container
-                Container(
-                  margin: const EdgeInsets.only(top: 15, bottom: 15),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.085,
-                  color: Colors.white,
-                  child: ListTile(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          DateTime mySelectedDay = DateTime.now();
+    return Container(
+      color: const Color.fromRGBO(240, 242, 244, 1),
+      width: MediaQuery.of(context).size.width,
+      child: ListView(
+        scrollDirection: Axis.vertical,
+        children: [
+          Column(
+            children: [
+              // Total This month container
+              Container(
+                margin: const EdgeInsets.only(top: 15, bottom: 15),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.085,
+                color: Colors.white,
+                child: ListTile(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        DateTime mySelectedDay = DateTime.now();
 
-                          return AlertDialog(
-                            contentPadding:
-                                const EdgeInsets.only(left: 10, right: 10),
-                            title: const Center(
-                                child: Text(
-                              "Calendar",
-                              style: TextStyle(
-                                  color: Color.fromRGBO(238, 111, 50, 1)),
-                            )),
-                            content: StatefulBuilder(
-                              builder:
-                                  (BuildContext context, StateSetter setState) {
-                                return SizedBox(
-                                  height: 340,
-                                  width: 340,
-                                  child: TableCalendar(
-                                    calendarStyle: const CalendarStyle(
-                                      weekendTextStyle: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.red,
-                                      ),
+                        return AlertDialog(
+                          contentPadding:
+                              const EdgeInsets.only(left: 10, right: 10),
+                          title: const Center(
+                              child: Text(
+                            "Calendar",
+                            style: TextStyle(
+                                color: Color.fromRGBO(238, 111, 50, 1)),
+                          )),
+                          content: StatefulBuilder(
+                            builder:
+                                (BuildContext context, StateSetter setState) {
+                              return SizedBox(
+                                height: 340,
+                                width: 340,
+                                child: TableCalendar(
+                                  calendarStyle: const CalendarStyle(
+                                    weekendTextStyle: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red,
                                     ),
-                                    headerStyle: const HeaderStyle(
-                                        formatButtonVisible: false,
-                                        titleCentered: true),
-                                    rowHeight: 42,
-                                    firstDay: DateTime.utc(2021, 10, 16),
-                                    lastDay: DateTime.utc(2030, 3, 14),
-                                    focusedDay: DateTime.now(),
-                                    currentDay: mySelectedDay,
-                                    availableCalendarFormats: const {
-                                      CalendarFormat.month: 'Month',
-                                    },
-                                    selectedDayPredicate: (day) {
-                                      return isSameDay(mySelectedDay, day);
-                                    },
-                                    onDaySelected: (selectedDay, focusedDay) {
-                                      setState(() {
-                                        mySelectedDay = selectedDay;
-                                      });
-                                    },
                                   ),
-                                );
-                              },
-                            ),
-                          );
-                        },
-                      );
-                    },
-                    horizontalTitleGap: -5,
-                    leading: const Icon(
-                      Icons.calendar_month,
-                      color: Color.fromRGBO(238, 111, 50, 1),
-                      size: 26,
-                    ),
-                    title: const Text(
-                      'Total this month',
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    ),
-                    trailing: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            getTotalAmount(mapsOfPayments: mapsOfPayments)
-                                .toString(),
-                            style: const TextStyle(
-                                color: Colors.green,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold),
+                                  headerStyle: const HeaderStyle(
+                                      formatButtonVisible: false,
+                                      titleCentered: true),
+                                  rowHeight: 42,
+                                  firstDay: DateTime.utc(2021, 10, 16),
+                                  lastDay: DateTime.utc(2030, 3, 14),
+                                  focusedDay: DateTime.now(),
+                                  currentDay: mySelectedDay,
+                                  availableCalendarFormats: const {
+                                    CalendarFormat.month: 'Month',
+                                  },
+                                  selectedDayPredicate: (day) {
+                                    return isSameDay(mySelectedDay, day);
+                                  },
+                                  onDaySelected: (selectedDay, focusedDay) {
+                                    setState(() {
+                                      mySelectedDay = selectedDay;
+                                    });
+                                  },
+                                ),
+                              );
+                            },
                           ),
-                        ),
-                        const Text(
-                          '0.0 AMD',
-                          style: TextStyle(
-                              color: Colors.grey,
+                        );
+                      },
+                    );
+                  },
+                  horizontalTitleGap: -5,
+                  leading: const Icon(
+                    Icons.calendar_month,
+                    color: Color.fromRGBO(238, 111, 50, 1),
+                    size: 26,
+                  ),
+                  title: const Text(
+                    'Total this month',
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                  trailing: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          getTotalAmount(mapsOfPayments: mapsOfPayments)
+                              .toString(),
+                          style: const TextStyle(
+                              color: Colors.green,
                               fontSize: 15,
                               fontWeight: FontWeight.bold),
                         ),
-                      ],
-                    ),
+                      ),
+                      const Text(
+                        '0.0 AMD',
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                 ),
-                // Current day
+              ),
+              // Current day
 
-                BuildFromDbdata(
-                  mapsOfPayments: mapsOfPayments,
-                  image: IconImages().tImage,
-                )
-              ],
-            ),
-          ],
-        ),
+              BuildFromDbdata(
+                mapsOfPayments: mapsOfPayments,
+                image: IconImages().tImage,
+              )
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -427,23 +452,21 @@ class _TerminalState extends State<Terminal> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        color: const Color.fromRGBO(240, 242, 244, 1),
-        width: MediaQuery.of(context).size.width,
-        child: ListView(
-          children: [
-            Column(
-              children: [
-                const SizedBox(height: 10),
-                BuildFromDbdata(
-                  mapsOfPayments: mapsOfPayments,
-                  image: IconImages().terminalImage,
-                )
-              ],
-            ),
-          ],
-        ),
+    return Container(
+      color: const Color.fromRGBO(240, 242, 244, 1),
+      width: MediaQuery.of(context).size.width,
+      child: ListView(
+        children: [
+          Column(
+            children: [
+              const SizedBox(height: 10),
+              BuildFromDbdata(
+                mapsOfPayments: mapsOfPayments,
+                image: IconImages().terminalImage,
+              )
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -484,68 +507,66 @@ class _AccountsState extends State<Accounts> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        color: const Color.fromRGBO(240, 242, 244, 1),
-        width: MediaQuery.of(context).size.width,
-        child: ListView(
-          children: [
-            Column(
-              children: [
-                // Total This month container
-                Container(
-                  margin: const EdgeInsets.only(top: 15, bottom: 15),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.085,
-                  color: Colors.white,
-                  child: ListTile(
-                    onTap: () {},
-                    horizontalTitleGap: -5,
-                    leading: const Icon(
-                      Icons.calendar_month,
-                      color: Color.fromRGBO(238, 111, 50, 1),
-                      size: 26,
-                    ),
-                    title: const Text(
-                      'Total this month',
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    ),
-                    trailing: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            getTotalAmount(mapsOfPayments: mapsOfPayments)
-                                .toString(),
-                            style: const TextStyle(
-                                color: Colors.green,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        const Text(
-                          '0.0 AMD',
-                          style: TextStyle(
-                              color: Colors.grey,
+    return Container(
+      color: const Color.fromRGBO(240, 242, 244, 1),
+      width: MediaQuery.of(context).size.width,
+      child: ListView(
+        children: [
+          Column(
+            children: [
+              // Total This month container
+              Container(
+                margin: const EdgeInsets.only(top: 15, bottom: 15),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.085,
+                color: Colors.white,
+                child: ListTile(
+                  onTap: () {},
+                  horizontalTitleGap: -5,
+                  leading: const Icon(
+                    Icons.calendar_month,
+                    color: Color.fromRGBO(238, 111, 50, 1),
+                    size: 26,
+                  ),
+                  title: const Text(
+                    'Total this month',
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                  trailing: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          getTotalAmount(mapsOfPayments: mapsOfPayments)
+                              .toString(),
+                          style: const TextStyle(
+                              color: Colors.green,
                               fontSize: 15,
                               fontWeight: FontWeight.bold),
                         ),
-                      ],
-                    ),
+                      ),
+                      const Text(
+                        '0.0 AMD',
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.25),
-                  child: const Text(
-                    'There are no payments',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                )
-              ],
-            ),
-          ],
-        ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.25),
+                child: const Text(
+                  'There are no payments',
+                  style: TextStyle(fontSize: 20),
+                ),
+              )
+            ],
+          ),
+        ],
       ),
     );
   }

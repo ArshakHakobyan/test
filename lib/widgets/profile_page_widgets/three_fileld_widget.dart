@@ -30,14 +30,14 @@ class ThreeFileldWidget extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(top: 16),
       width: MediaQuery.of(context).size.width * 0.9,
-      height: hasAmountField ? 200 : 195,
+      height: hasAmountField ? 200 : 175,
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(5)),
       child: Column(
         children: [
           ListTile(
+            dense: hasAmountField ? true : false,
             horizontalTitleGap: 0,
-            dense: true,
             onTap: () {
               if (firstFieldroute != null) {
                 Navigator.of(context)
@@ -58,13 +58,13 @@ class ThreeFileldWidget extends StatelessWidget {
                       Text("0"),
                     ],
                   )
-                : const SizedBox(),
+                : null,
             title: Text(firstTitle, style: const TextStyle(fontSize: 17)),
           ),
           const Divider(height: 1),
           ListTile(
+            dense: hasAmountField ? true : false,
             horizontalTitleGap: 0,
-            dense: true,
             onTap: () {
               if (secondFieldroute != null) {
                 Navigator.of(context)
@@ -85,13 +85,13 @@ class ThreeFileldWidget extends StatelessWidget {
                       Text("0"),
                     ],
                   )
-                : const SizedBox(),
+                : null,
             title: Text(secondTitle, style: const TextStyle(fontSize: 17)),
           ),
           const Divider(height: 1),
           ListTile(
+            dense: hasAmountField ? true : false,
             horizontalTitleGap: 0,
-            dense: true,
             onTap: () {
               if (thirdFieldroute != null) {
                 Navigator.of(context)
@@ -112,7 +112,7 @@ class ThreeFileldWidget extends StatelessWidget {
                       Text("0"),
                     ],
                   )
-                : const SizedBox(),
+                : null,
             title: Text(thirdTitle, style: const TextStyle(fontSize: 17)),
           ),
         ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:telcell_copy/pageModels/home_page_model.dart';
 import 'package:telcell_copy/pages/add_credit_card_page.dart';
@@ -13,6 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Color.fromRGBO(0, 0, 0, 0),
+        ),
+      )),
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
         '/': (context) => ChangeNotifierProvider(

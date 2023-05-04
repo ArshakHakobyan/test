@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:telcell_copy/pages/registratin_page.dart';
-
 import '../widgets/icon_images.dart';
 
 class Authorization extends StatefulWidget {

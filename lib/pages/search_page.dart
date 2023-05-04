@@ -8,12 +8,6 @@ class SearchPage extends StatefulWidget {
 
 class SearchPageState extends State<SearchPage> {
   @override
-  void initState() {
-    super.initState();
-    //i need to click on search
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(

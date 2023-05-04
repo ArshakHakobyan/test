@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:telcell_copy/pageModels/home_page_model.dart';
 
 import 'authorization_page.dart';
 import 'credit_cards_page.dart';
@@ -7,23 +9,8 @@ import 'profile_page.dart';
 import 'qr_code_page.dart';
 import 'wallet_page.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({key}) : super(key: key);
-  @override
-  State<HomeScreen> createState() {
-    return HomeScreenState();
-  }
-}
-
-class HomeScreenState extends State<HomeScreen> {
-  bool isAuthorized = false;
-  int curIndex = 0;
-  void toggle() {
-    setState(() {
-      isAuthorized = true;
-    });
-  }
-
+// ignore: must_be_immutable
+class HomeScreen extends StatelessWidget {
   List<Widget> pages = <Widget>[
     const WalletPage(),
     const CardsPage(),
@@ -31,22 +18,24 @@ class HomeScreenState extends State<HomeScreen> {
     //const CryptoPage(),
     const ProfilePage(),
   ];
+
+  HomeScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return isAuthorized
+    return context.watch<HomeScreenModel>().isAuthorized
         ? Scaffold(
-            body: pages[curIndex],
+            body: pages[context.watch<HomeScreenModel>().curIndex],
             bottomNavigationBar: BottomNavigationBar(
-              currentIndex: curIndex,
+              currentIndex: context.watch<HomeScreenModel>().curIndex,
               backgroundColor: Colors.white,
               selectedItemColor:
                   const Color.fromRGBO(238, 111, 50, 1), //main color
               unselectedItemColor: const Color.fromRGBO(176, 190, 198, 1),
               type: BottomNavigationBarType.fixed,
               onTap: (indexOfNavBtn) {
-                setState(() {
-                  curIndex = indexOfNavBtn;
-                });
+                context
+                    .read<HomeScreenModel>()
+                    .setCurrentIndex(newIndex: indexOfNavBtn);
               },
               items: const [
                 BottomNavigationBarItem(
@@ -64,7 +53,7 @@ class HomeScreenState extends State<HomeScreen> {
             ),
           )
         : Authorization(
-            callback: toggle,
+            callback: context.read<HomeScreenModel>().toggle,
           );
   }
 }

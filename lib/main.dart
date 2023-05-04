@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import 'package:telcell_copy/pageModels/home_page_model.dart';
 import 'package:telcell_copy/pages/add_credit_card_page.dart';
 import 'pages/home_page.dart';
 
@@ -14,7 +15,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
-        '/': (context) => const HomeScreen(),
+        '/': (context) => ChangeNotifierProvider(
+              create: (context) => HomeScreenModel(),
+              child: HomeScreen(),
+            ),
         '/credit_cards_page/bindbtn': (context) => const AddCard(),
       },
       initialRoute: '/',

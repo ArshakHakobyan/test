@@ -1,26 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+
 import 'package:telcell_copy/widgets/balance_visibility.dart';
 import 'package:telcell_copy/widgets/icon_images.dart';
-import '../widgets/db.dart';
+import '../pageModels/payments_hystory_page_model.dart';
 
-class PaymentsHistoryPage extends StatefulWidget {
-  const PaymentsHistoryPage({super.key});
-  @override
-  State<PaymentsHistoryPage> createState() {
-    return PaymentsHistoryPageState();
-  }
-}
-
-class PaymentsHistoryPageState extends State<PaymentsHistoryPage> {
-  final pageController = PageController();
-
-  int pressedButtonNumber = 0;
+// ignore: must_be_immutable
+class PaymentsHistoryPage extends StatelessWidget {
   List<Widget> buttonToWidget = [
     const TelcellWallet(),
     const Terminal(),
     const Accounts()
   ];
+
+  PaymentsHistoryPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,19 +38,19 @@ class PaymentsHistoryPageState extends State<PaymentsHistoryPage> {
                 Expanded(
                   child: InkWell(
                     onTap: () {
-                      setState(() {
-                        pressedButtonNumber = 0;
-                        pageController.animateToPage(pressedButtonNumber,
-                            duration: const Duration(milliseconds: 400),
-                            curve: Curves.easeInOut);
-                      });
+                      context
+                          .read<PaymentsHistoryPageModel>()
+                          .animateTo(page: 0);
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.07,
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
-                        color: pressedButtonNumber == 0
+                        color: context
+                                    .watch<PaymentsHistoryPageModel>()
+                                    .pressedButtonNumber ==
+                                0
                             ? const Color.fromRGBO(238, 111, 50, 1)
                             : const Color.fromARGB(255, 255, 255, 255),
                         width: 2.0,
@@ -64,11 +59,17 @@ class PaymentsHistoryPageState extends State<PaymentsHistoryPage> {
                         child: Text(
                           "Telcell Wallet",
                           style: TextStyle(
-                            color: pressedButtonNumber == 0
+                            color: context
+                                        .watch<PaymentsHistoryPageModel>()
+                                        .pressedButtonNumber ==
+                                    0
                                 ? Colors.black
                                 : Colors.grey,
                             fontSize: 15,
-                            fontWeight: pressedButtonNumber == 0
+                            fontWeight: context
+                                        .watch<PaymentsHistoryPageModel>()
+                                        .pressedButtonNumber ==
+                                    0
                                 ? FontWeight.w500
                                 : FontWeight.bold,
                           ),
@@ -81,19 +82,19 @@ class PaymentsHistoryPageState extends State<PaymentsHistoryPage> {
                 Expanded(
                   child: InkWell(
                     onTap: () {
-                      setState(() {
-                        pressedButtonNumber = 1;
-                        pageController.animateToPage(pressedButtonNumber,
-                            duration: const Duration(milliseconds: 400),
-                            curve: Curves.easeInOut);
-                      });
+                      context
+                          .read<PaymentsHistoryPageModel>()
+                          .animateTo(page: 1);
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.07,
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
-                        color: pressedButtonNumber == 1
+                        color: context
+                                    .watch<PaymentsHistoryPageModel>()
+                                    .pressedButtonNumber ==
+                                1
                             ? const Color.fromRGBO(238, 111, 50, 1)
                             : const Color.fromARGB(255, 255, 255, 255),
                         width: 2.0,
@@ -102,11 +103,17 @@ class PaymentsHistoryPageState extends State<PaymentsHistoryPage> {
                         child: Text(
                           "Terminal",
                           style: TextStyle(
-                            color: pressedButtonNumber == 1
+                            color: context
+                                        .watch<PaymentsHistoryPageModel>()
+                                        .pressedButtonNumber ==
+                                    1
                                 ? Colors.black
                                 : Colors.grey,
                             fontSize: 15,
-                            fontWeight: pressedButtonNumber == 1
+                            fontWeight: context
+                                        .watch<PaymentsHistoryPageModel>()
+                                        .pressedButtonNumber ==
+                                    1
                                 ? FontWeight.w500
                                 : FontWeight.bold,
                           ),
@@ -119,19 +126,19 @@ class PaymentsHistoryPageState extends State<PaymentsHistoryPage> {
                 Expanded(
                   child: InkWell(
                     onTap: () {
-                      setState(() {
-                        pressedButtonNumber = 2;
-                        pageController.animateToPage(pressedButtonNumber,
-                            duration: const Duration(milliseconds: 400),
-                            curve: Curves.easeInOut);
-                      });
+                      context
+                          .read<PaymentsHistoryPageModel>()
+                          .animateTo(page: 2);
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.07,
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
-                        color: pressedButtonNumber == 2
+                        color: context
+                                    .watch<PaymentsHistoryPageModel>()
+                                    .pressedButtonNumber ==
+                                2
                             ? const Color.fromRGBO(238, 111, 50, 1)
                             : const Color.fromARGB(255, 255, 255, 255),
                         width: 2.0,
@@ -140,11 +147,17 @@ class PaymentsHistoryPageState extends State<PaymentsHistoryPage> {
                         child: Text(
                           "Accounts",
                           style: TextStyle(
-                            color: pressedButtonNumber == 2
+                            color: context
+                                        .watch<PaymentsHistoryPageModel>()
+                                        .pressedButtonNumber ==
+                                    2
                                 ? Colors.black
                                 : Colors.grey,
                             fontSize: 15,
-                            fontWeight: pressedButtonNumber == 2
+                            fontWeight: context
+                                        .watch<PaymentsHistoryPageModel>()
+                                        .pressedButtonNumber ==
+                                    2
                                 ? FontWeight.w500
                                 : FontWeight.bold,
                           ),
@@ -158,11 +171,12 @@ class PaymentsHistoryPageState extends State<PaymentsHistoryPage> {
           ),
           Expanded(
             child: PageView(
-              controller: pageController,
+              controller:
+                  context.watch<PaymentsHistoryPageModel>().pageController,
               onPageChanged: (int index) {
-                setState(() {
-                  pressedButtonNumber = index;
-                });
+                context
+                    .read<PaymentsHistoryPageModel>()
+                    .pageNumber(pageNum: index);
               },
               scrollDirection: Axis.horizontal,
               children: [
@@ -179,41 +193,13 @@ class PaymentsHistoryPageState extends State<PaymentsHistoryPage> {
   }
 }
 
-class TelcellWallet extends StatefulWidget {
+class TelcellWallet extends StatelessWidget {
   const TelcellWallet({super.key});
-  @override
-  State<TelcellWallet> createState() {
-    return TelcellWalletState();
-  }
-}
-
-class TelcellWalletState extends State<TelcellWallet> {
-  List<Map> mapsOfPayments = [];
-  void getDataFromDatabase() async {
-    final List<Map> cards =
-        await DatabaseHelper.instance.readDataFromDatabase(walletDb: true);
-    for (Map item in cards) {
-      mapsOfPayments.add(item);
-    }
-    setState(() {});
-  }
-
-  double getTotalAmount({required List<Map> mapsOfPayments}) {
-    double total = 0;
-    for (int i = 0; i < mapsOfPayments.length; i++) {
-      total += double.parse(mapsOfPayments[i]['amount']);
-    }
-    return total;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getDataFromDatabase();
-  }
 
   @override
   Widget build(BuildContext context) {
+    List<Map> mapsOfPayments =
+        Provider.of<PaymentsHistoryPageModel>(context).mapsOfPaymentsForWallet;
     return Container(
       color: const Color.fromRGBO(240, 242, 244, 1),
       width: MediaQuery.of(context).size.width,
@@ -299,7 +285,9 @@ class TelcellWalletState extends State<TelcellWallet> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          getTotalAmount(mapsOfPayments: mapsOfPayments)
+                          context
+                              .read<PaymentsHistoryPageModel>()
+                              .getTotalAmount(mapsOfPayments: mapsOfPayments)
                               .toString(),
                           style: const TextStyle(
                               color: Colors.green,
@@ -332,32 +320,14 @@ class TelcellWalletState extends State<TelcellWallet> {
   }
 }
 
-class Terminal extends StatefulWidget {
+class Terminal extends StatelessWidget {
   const Terminal({super.key});
 
   @override
-  State<Terminal> createState() => _TerminalState();
-}
-
-class _TerminalState extends State<Terminal> {
-  List<Map> mapsOfPayments = [];
-  void getDataFromDatabase() async {
-    final List<Map> cards =
-        await DatabaseHelper.instance.readDataFromDatabase(terminalDb: true);
-    for (Map item in cards) {
-      mapsOfPayments.add(item);
-    }
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getDataFromDatabase();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    List<Map> mapsOfPaymentsTerminal =
+        Provider.of<PaymentsHistoryPageModel>(context)
+            .mapsOfPaymentsForTerminal;
     return Container(
       color: const Color.fromRGBO(240, 242, 244, 1),
       width: MediaQuery.of(context).size.width,
@@ -367,7 +337,7 @@ class _TerminalState extends State<Terminal> {
             children: [
               const SizedBox(height: 10),
               BuildFromDbdata(
-                mapsOfPayments: mapsOfPayments,
+                mapsOfPayments: mapsOfPaymentsTerminal,
                 image: IconImages().terminalImage,
               )
             ],
@@ -378,41 +348,14 @@ class _TerminalState extends State<Terminal> {
   }
 }
 
-class Accounts extends StatefulWidget {
+// ignore: must_be_immutable
+class Accounts extends StatelessWidget {
   const Accounts({super.key});
 
   @override
-  State<Accounts> createState() => _AccountsState();
-}
-
-class _AccountsState extends State<Accounts> {
-  List<Map> mapsOfPayments = [];
-
-  void getDataFromDatabase() async {
-    final List<Map> cards =
-        await DatabaseHelper.instance.readDataFromDatabase(walletDb: true);
-    for (Map item in cards) {
-      mapsOfPayments.add(item);
-    }
-    setState(() {});
-  }
-
-  double getTotalAmount({required List<Map> mapsOfPayments}) {
-    double total = 0;
-    for (int i = 0; i < mapsOfPayments.length; i++) {
-      total += double.parse(mapsOfPayments[i]['amount']);
-    }
-    return total;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getDataFromDatabase();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    List<Map> mapsOfPayments =
+        Provider.of<PaymentsHistoryPageModel>(context).mapsOfPaymentsForWallet;
     return Container(
       color: const Color.fromRGBO(240, 242, 244, 1),
       width: MediaQuery.of(context).size.width,
@@ -443,7 +386,9 @@ class _AccountsState extends State<Accounts> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          getTotalAmount(mapsOfPayments: mapsOfPayments)
+                          context
+                              .read<PaymentsHistoryPageModel>()
+                              .getTotalAmount(mapsOfPayments: mapsOfPayments)
                               .toString(),
                           style: const TextStyle(
                               color: Colors.green,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:telcell_copy/pages/my_account_page.dart';
 import 'package:telcell_copy/pages/replenish_page.dart';
@@ -23,16 +22,14 @@ class _WalletPageState extends State<WalletPage> {
   late DateTime now;
 
   void toNotifications({String? choosePage}) {
-    final navigator = Navigator.of(context);
     if (choosePage == 'searchPage') {
-      navigator.push(
+      Navigator.of(context).push(
           MaterialPageRoute<void>(builder: (context) => const SearchPage()));
-      setState(() {});
     } else {
-      navigator.push(
+      Navigator.of(context).push(
           MaterialPageRoute<void>(builder: (context) => const Notifications()));
-      setState(() {});
     }
+    setState(() {});
   }
 
   @override

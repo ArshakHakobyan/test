@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telcell_copy/pageModels/home_page_model.dart';
 
+import '../pageModels/authorization_page_model.dart';
 import 'authorization_page.dart';
 import 'credit_cards_page.dart';
 //import 'crypto_value_page.dart';
@@ -52,8 +53,13 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           )
-        : Authorization(
-            callback: context.read<HomeScreenModel>().toggle,
+        : ChangeNotifierProvider(
+            create: (BuildContext context) {
+              return AuthorizationModel();
+            },
+            child: Authorization(
+              callback: context.read<HomeScreenModel>().toggle,
+            ),
           );
   }
 }

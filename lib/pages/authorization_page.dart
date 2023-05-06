@@ -1,157 +1,87 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:local_auth/local_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:telcell_copy/pages/registratin_page.dart';
+import '../pageModels/authorization_page_model.dart';
 import '../widgets/icon_images.dart';
 
-class Authorization extends StatefulWidget {
+class Authorization extends StatelessWidget {
   final void Function() callback;
   const Authorization({super.key, required this.callback});
   @override
-  State<Authorization> createState() {
-    return AuthorizationState();
-  }
-}
-
-class AuthorizationState extends State<Authorization> {
-  late final LocalAuthentication auth;
-  bool supportstate = false;
-
-  @override
-  void initState() {
-    super.initState();
-    auth = LocalAuthentication();
-
-    auth.isDeviceSupported().then(
-      (bool value) {
-        setState(() {
-          auth.getAvailableBiometrics().then((value) {
-            return value.isNotEmpty
-                ? supportstate = true
-                : supportstate = false;
-          });
-        });
-      },
-    );
-  }
-
-  String pinCode = '';
-  String realPin = '5693';
-
-  Widget digitButton(String digit) {
-    return Expanded(
-        child: InkResponse(
-      highlightColor: Colors.grey.withOpacity(0.5),
-      onTap: () {
-        addDigit(digit);
-      },
-      child: Center(
-        child: Text(
-          digit,
-          style: const TextStyle(
-              color: Color.fromARGB(255, 0, 0, 0),
-              fontSize: 25,
-              fontWeight: FontWeight.bold),
+  Widget build(BuildContext context) {
+    Widget digitButton(String digit) {
+      return Expanded(
+          child: InkResponse(
+        highlightColor: Colors.grey.withOpacity(0.5),
+        onTap: () {
+          //addDigit(digit); //
+          context.read<AuthorizationModel>().addDigit(digit, callback);
+        },
+        child: Center(
+          child: Text(
+            digit,
+            style: const TextStyle(
+                color: Color.fromARGB(255, 0, 0, 0),
+                fontSize: 25,
+                fontWeight: FontWeight.bold),
+          ),
         ),
-      ),
-    ));
-  }
+      ));
+    }
 
-  Widget backspaceButton(IconData icon) {
-    return Expanded(
-        child: InkWell(
-      onTap: () {
-        if (pinCode.isNotEmpty) {
-          setState(() {
-            pinCode = pinCode.substring(0, pinCode.length - 1);
-          });
-        }
-      },
-      child: Center(
-          child: Icon(
-        icon,
-        color: Colors.grey,
-      )),
-    ));
-  }
-
-  Widget fingerprint() {
-    return Expanded(
-      child: InkResponse(
-        onTap: () async {
-          if (supportstate) {
-            bool authenticated = await authenticate();
-            if (authenticated) {
-              setState(() {
-                pinCode = realPin;
+    Widget fingerprint() {
+      return Expanded(
+        child: InkResponse(
+          onTap: () async {
+            if (context.read<AuthorizationModel>().supportState) {
+              bool authenticated =
+                  await context.read<AuthorizationModel>().authenticate();
+              if (authenticated) {
+                // ignore: use_build_context_synchronously
+                context.read<AuthorizationModel>().setPinCode('5693');
                 Timer(const Duration(milliseconds: 50), () {
-                  setState(() {
-                    widget.callback();
-                  });
+                  callback();
                 });
                 //widget.callback();
-              });
+              }
+            } else {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const AlertDialog(
+                      title: Center(
+                          child: Text('You have not installed biometrics ')),
+                      content: Text('.....'),
+                    );
+                  });
             }
-          } else {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return const AlertDialog(
-                    title: Center(
-                        child: Text('You have not installed biometrics ')),
-                    content: Text('.....'),
-                  );
-                });
-          }
-        },
-        child: const Icon(
-          Icons.fingerprint_sharp,
-          color: Color.fromRGBO(238, 111, 50, 1),
-        ),
-      ),
-    );
-  }
-
-  void addDigit(String digit) {
-    if (pinCode.length < 4) {
-      setState(() {
-        pinCode += digit;
-        if (pinCode == realPin) {
-          Timer(const Duration(milliseconds: 10), () {
-            setState(() {
-              widget.callback();
-            });
-          });
-        } else if (pinCode.length == 4 && pinCode != realPin) {
-          //sleep(Duration(seconds: 2));
-          Timer(const Duration(milliseconds: 500), () {
-            setState(() {
-              pinCode = "";
-            });
-          });
-        }
-      });
-    }
-  }
-
-  Future<bool> authenticate() async {
-    try {
-      final authenticated = await auth.authenticate(
-        localizedReason: "Դի Մադտ",
-        options: const AuthenticationOptions(
-          stickyAuth: true,
-          biometricOnly: false,
+          },
+          child: const Icon(
+            Icons.fingerprint_sharp,
+            color: Color.fromRGBO(238, 111, 50, 1),
+          ),
         ),
       );
-      return authenticated;
-    } catch (e) {
-      return false;
     }
-  }
 
-  @override
-  Widget build(BuildContext context) {
+    Widget backspaceButton(IconData icon) {
+      return Expanded(
+          child: InkWell(
+        onTap: () {
+          String pinCode = context.read<AuthorizationModel>().pinCode;
+          context
+              .read<AuthorizationModel>()
+              .setPinCode(pinCode.substring(0, pinCode.length - 1));
+        },
+        child: Center(
+            child: Icon(
+          icon,
+          color: Colors.grey,
+        )),
+      ));
+    }
+
     return Scaffold(
       body: Ink(
         height: MediaQuery.of(context).size.height,
@@ -181,23 +111,27 @@ class AuthorizationState extends State<Authorization> {
             ),
             //for responsivity
             const Expanded(child: SizedBox()),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.6,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: List.generate(
-                  4,
-                  (index) => Container(
-                    width: 15,
-                    height: 15,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: index < pinCode.length
-                            ? const Color.fromRGBO(238, 111, 50, 1)
-                            : const Color.fromARGB(255, 187, 186, 186)),
+            Consumer<AuthorizationModel>(
+              builder: (BuildContext context, value, Widget? child) {
+                return SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: List.generate(
+                      4,
+                      (index) => Container(
+                        width: 15,
+                        height: 15,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: index < value.pinCode.length
+                                ? const Color.fromRGBO(238, 111, 50, 1)
+                                : const Color.fromARGB(255, 187, 186, 186)),
+                      ),
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
             //for responsivity
             const Expanded(child: SizedBox()),
@@ -236,9 +170,12 @@ class AuthorizationState extends State<Authorization> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      supportstate
-                          ? fingerprint()
-                          : const Expanded(child: Text(' ')),
+                      Consumer<AuthorizationModel>(builder:
+                          (BuildContext context, value, Widget? child) {
+                        return value.supportState
+                            ? fingerprint()
+                            : const Expanded(child: Text(' '));
+                      }),
                       digitButton('0'),
                       backspaceButton(Icons.backspace)
                     ],

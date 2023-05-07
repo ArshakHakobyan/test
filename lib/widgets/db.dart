@@ -73,15 +73,15 @@ class DatabaseHelper {
   // Read from database
   Future<List<Map<String, dynamic>>> readDataFromDatabase(
       {bool? walletDb, bool? terminalDb}) async {
+    final db = await instance.database;
+
     if (walletDb != null) {
-      Database db = await instance.database;
       return await db.query('dateOfP');
     } else if (terminalDb != null) {
-      Database db = await instance.database;
       return await db.query('dateOfPaymentTerminal');
+    } else {
+      return await db.query('credit_cards');
     }
-    Database db = await instance.database;
-    return await db.query('credit_cards');
   }
 
 // for add into db

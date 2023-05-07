@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:telcell_copy/pageModels/home_page_model.dart';
 
 import '../pageModels/authorization_page_model.dart';
+import '../pageModels/credit_cards_page_model.dart';
 import 'authorization_page.dart';
 import 'credit_cards_page.dart';
 //import 'crypto_value_page.dart';
@@ -14,7 +15,8 @@ import 'wallet_page.dart';
 class HomeScreen extends StatelessWidget {
   List<Widget> pages = <Widget>[
     const WalletPage(),
-    const CardsPage(),
+    ChangeNotifierProvider(
+        create: (BuildContext context) => CardsPageModel(), child: CardsPage()),
     const QrCodePage(),
     //const CryptoPage(),
     const ProfilePage(),

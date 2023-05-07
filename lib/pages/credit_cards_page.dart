@@ -1,71 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:telcell_copy/widgets/balance_visibility.dart';
-import '../widgets/db.dart';
+import '../pageModels/credit_cards_page_model.dart';
 import '../widgets/icon_images.dart';
 import 'add_credit_card_page.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
-class CardsPage extends StatefulWidget {
-  const CardsPage({super.key});
-  @override
-  State<StatefulWidget> createState() {
-    return CardsPageState();
-  }
-}
-
-class CardsPageState extends State<CardsPage> {
-  final double bottomNavBarHeight = kBottomNavigationBarHeight;
-  final double appBarHeight = kToolbarHeight;
-
+// ignore: must_be_immutable
+class CardsPage extends StatelessWidget {
   List<CreditCardWidget> updatedCreditCards = [];
-  @override
-  void initState() {
-    super.initState();
-    getDataFromDatabase();
-    //
-  }
 
-// get data from data base and call addCard to render cards
-  void getDataFromDatabase() async {
-    final List<Map> cards =
-        await DatabaseHelper.instance.readDataFromDatabase();
-    for (Map item in cards) {
-      addCard(
-        cardNumber: item['card_number'],
-        cardHolder: item['card_holder'],
-        expirationDate: item['expiration_date'],
-      );
-    }
-    setState(() {});
-  }
-
-  //add card
-  void addCard({
-    required String cardNumber,
-    required String cardHolder,
-    required String expirationDate,
-  }) {
-    updatedCreditCards.add(CreditCardWidget(
-      cardHolderName: cardHolder, //Name of Cardholder
-      cardNumber: cardNumber, //Card Number
-      expiryDate: expirationDate,
-
-      glassmorphismConfig: Glassmorphism(
-        blurX: 50,
-        blurY: 50,
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Colors.black, Color.fromARGB(255, 188, 126, 25)],
-        ),
-      ),
-      cvvCode: '123',
-      bankName: "ID Bank",
-      showBackView: false,
-      onCreditCardWidgetChange: (p0) => {},
-      isHolderNameVisible: true,
-    ));
-  }
+  CardsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +18,7 @@ class CardsPageState extends State<CardsPage> {
         backgroundColor: const Color.fromRGBO(240, 242, 244, 1),
         appBar: AppBar(
             backgroundColor: const Color.fromRGBO(238, 111, 50, 1),
-            title:  BalanceVisibility()),
+            title: BalanceVisibility()),
         body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
@@ -89,7 +34,7 @@ class CardsPageState extends State<CardsPage> {
                 ),
               ),
               //Cards
-              updatedCreditCards.isEmpty
+              context.watch<CardsPageModel>().creditCardsList.isEmpty
                   ? Expanded(
                       child: Center(
                           child: Image(
@@ -98,29 +43,34 @@ class CardsPageState extends State<CardsPage> {
                     )
                   : Column(
                       children: [
-                        SizedBox(
-                          height:
-                              (kToolbarHeight + kBottomNavigationBarHeight) *
+                        Consumer<CardsPageModel>(
+                          builder:
+                              (BuildContext context, value, Widget? child) {
+                            return SizedBox(
+                              height: (kToolbarHeight +
+                                      kBottomNavigationBarHeight) *
                                   1.9,
-                          child: ListView.builder(
-                            itemCount: updatedCreditCards.length,
-                            itemBuilder: (
-                              BuildContext context,
-                              int index,
-                            ) {
-                              /////////////////////////
-                              return SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.91,
-                                child: updatedCreditCards[index],
-                              );
-                            },
-                            scrollDirection: Axis.horizontal,
-                          ),
-                        ),
+                              child: ListView.builder(
+                                itemCount: value.creditCardsList.length,
+                                itemBuilder: (
+                                  BuildContext context,
+                                  int index,
+                                ) {
+                                  return SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.91,
+                                    child: value.creditCardsList[index],
+                                  );
+                                },
+                                scrollDirection: Axis.horizontal,
+                              ),
+                            );
+                          },
+                        )
                       ],
                     ),
               //for Bind Card button addaptive position
-              updatedCreditCards.isEmpty
+              context.watch<CardsPageModel>().creditCardsList.isEmpty
                   ? const SizedBox()
                   : const Expanded(child: SizedBox()),
               Padding(
@@ -133,11 +83,6 @@ class CardsPageState extends State<CardsPage> {
                         builder: (context) => const AddCard(),
                       ),
                     );
-
-                    setState(() {
-                      updatedCreditCards = [];
-                      getDataFromDatabase();
-                    });
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(

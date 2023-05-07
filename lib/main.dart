@@ -6,6 +6,7 @@ import 'package:telcell_copy/pages/add_credit_card_page.dart';
 import 'pages/home_page.dart';
 
 void main() async {
+  
   runApp(const MyApp());
 }
 

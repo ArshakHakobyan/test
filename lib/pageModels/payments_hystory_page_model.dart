@@ -29,34 +29,35 @@ class PaymentsHistoryPageModel extends ChangeNotifier {
   final List<Map> _mapsOfPaymentsForTerminal = [];
   final List<Map> _mapsOfPaymentsForWallet = [];
 
-  Future<void> _loadDataFromDatabase2() async {
-    List<Map<String, dynamic>> dataW =
-        await DatabaseHelper.instance.readDataFromDatabase(terminalDb: true);
-    for (Map item in dataW) {
-      _mapsOfPaymentsForTerminal.add(item);
-    }
-    notifyListeners();
-  }
+  Future<List<Map<String, dynamic>>> _loadDataFromDatabase(
+      {bool? walletDb, bool? terminalDb}) async {
+    DatabaseHelper dbHelper = DatabaseHelper.instance;
 
-  Future<void> _loadDataFromDatabase3() async {
-    List<Map<String, dynamic>> dataW =
-        await DatabaseHelper.instance.readDataFromDatabase(walletDb: true);
-    for (Map item in dataW) {
-      _mapsOfPaymentsForWallet.add(item);
+    if (walletDb != null) {
+      return await dbHelper.readDataFromDatabase(walletDb: true);
+    } else if (terminalDb != null) {
+      return await dbHelper.readDataFromDatabase(terminalDb: true);
+    } else {
+      throw ArgumentError("Either walletDb or terminalDb must be set");
     }
-    notifyListeners();
   }
 
   List<Map> get mapsOfPaymentsForTerminal {
     if (_mapsOfPaymentsForTerminal.isEmpty) {
-      _loadDataFromDatabase2();
+      _loadDataFromDatabase(terminalDb: true).then((dataW) {
+        _mapsOfPaymentsForTerminal.addAll(dataW);
+        notifyListeners();
+      });
     }
     return _mapsOfPaymentsForTerminal;
   }
 
   List<Map> get mapsOfPaymentsForWallet {
     if (_mapsOfPaymentsForWallet.isEmpty) {
-      _loadDataFromDatabase3();
+      _loadDataFromDatabase(walletDb: true).then((dataW) {
+        _mapsOfPaymentsForWallet.addAll(dataW);
+        notifyListeners();
+      });
     }
     return _mapsOfPaymentsForWallet;
   }

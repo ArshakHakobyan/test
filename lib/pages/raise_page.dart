@@ -136,7 +136,7 @@ class WalletStatus extends StatelessWidget {
                     onPressed: () {
                       if (context.read<RaisePageModel>().title == "Expert") {
                         Navigator.of(context).push(MaterialPageRoute<void>(
-                            builder: (context) => const CardsPage()));
+                            builder: (context) => CardsPage()));
                       } else {
                         Navigator.of(context).push(MaterialPageRoute<void>(
                             builder: (context) => MyAccountPage()));

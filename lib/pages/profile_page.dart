@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:telcell_copy/pages/payment_invoces_page.dart';
 import 'package:telcell_copy/pages/payments_history_page.dart';
+import '../pageModels/finance_page_model.dart';
 import '../pageModels/payments_hystory_page_model.dart';
 import '../widgets/profile_page_widgets/account_field_widget.dart';
 import 'package:telcell_copy/widgets/profile_page_widgets/avatar_widget.dart';
@@ -58,13 +60,16 @@ class ProfilePageState extends State<ProfilePage> {
                 firstTitle: ' Finance',
                 secondTitle: ' Payments History',
                 thirdTitle: ' Payment invoices',
-                firstFieldroute: const FinancePage(),
+                firstFieldroute: ChangeNotifierProvider(
+                    create: (BuildContext context) => FinancePageModel(),
+                    child: const FinancePage()),
                 secondFieldroute: ChangeNotifierProvider(
                   create: (context) {
                     return PaymentsHistoryPageModel();
                   },
                   child: PaymentsHistoryPage(),
                 ),
+                thirdFieldroute: const PaymentInvocies(),
               ),
               ThreeFileldWidget(
                 hasAmountField: true,

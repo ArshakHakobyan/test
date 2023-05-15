@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telcell_copy/pageModels/add_credit_card_model.dart';
@@ -25,10 +27,30 @@ class CardsPage extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.only(left: 15, top: 10, bottom: 10),
                 width: MediaQuery.of(context).size.width,
-                child: const Text(
-                  "Cards",
-                  style: TextStyle(
-                      color: Color.fromRGBO(176, 190, 198, 1), fontSize: 20),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          right: MediaQuery.of(context).size.width * 0.63),
+                      child: const Text(
+                        "Cards",
+                        style: TextStyle(
+                            color: Color.fromRGBO(176, 190, 198, 1),
+                            fontSize: 20),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        context.read<CardsPageModel>().deleteCreditCard();
+                      },
+                      child: const Text(
+                        "Delete",
+                        style: TextStyle(
+                            color: Color.fromRGBO(238, 111, 50, 1),
+                            fontSize: 20),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               //Cards
@@ -49,6 +71,7 @@ class CardsPage extends StatelessWidget {
                                       kBottomNavigationBarHeight) *
                                   1.9,
                               child: ListView.builder(
+                                controller: value.scrollController,
                                 itemCount: value.creditCardsList.length,
                                 itemBuilder: (
                                   BuildContext context,
@@ -84,12 +107,14 @@ class CardsPage extends StatelessWidget {
                                 //context.watch();
                                 return AddCreditCardModel();
                               },
-                              child: const AddCard());
+                              child: AddCard());
                         },
                       ),
                     );
-                    // ignore: use_build_context_synchronously
-                    context.read<CardsPageModel>().getCreditCardData();
+
+                    Timer(const Duration(seconds: 1), () {
+                      context.read<CardsPageModel>().getCreditCardData();
+                    });
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(

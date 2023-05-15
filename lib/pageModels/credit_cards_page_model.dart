@@ -7,10 +7,31 @@ import 'package:http/http.dart' as http;
 //import '../widgets/db.dart';
 
 class CardsPageModel extends ChangeNotifier {
+  ScrollController scrollController = ScrollController();
+  int currentIndex = 0;
+  String _id = '';
+
   CardsPageModel() {
     getCreditCardData();
+    scrollController.addListener(_scrollListener);
   }
   List<CreditCardWidget> _creditCardsList = [];
+
+  void _scrollListener() {
+    currentIndex = (scrollController.offset / 330).round();
+    //id in labelExpiredDate
+    _id = _creditCardsList[currentIndex].labelExpiredDate;
+    notifyListeners();
+  }
+
+  Future<void> deleteCreditCard() async {
+    final url = Uri.parse(
+        'https://645f33f89d35038e2d1ec86e.mockapi.io/credit_cards/$_id');
+    final response = await http.delete(url);
+    if (response.statusCode == 200) {
+    } else {}
+    getCreditCardData();
+  }
 
   void getCreditCardData() async {
     final response = await http.get(
@@ -27,7 +48,8 @@ class CardsPageModel extends ChangeNotifier {
             cardHolder: item['card_holder'],
             expirationDate: item['expiration_date'],
             cvv: item['cvv'],
-            color: item['color']);
+            color: item['color'],
+            labelExpiredDate: item['id']);
       }
     }
   }
@@ -49,6 +71,7 @@ class CardsPageModel extends ChangeNotifier {
     required String cardHolder,
     required String expirationDate,
     required String cvv,
+    required String labelExpiredDate,
     String? color,
   }) {
     _creditCardsList.add(CreditCardWidget(
@@ -73,7 +96,9 @@ class CardsPageModel extends ChangeNotifier {
       showBackView: false,
       onCreditCardWidgetChange: (p0) => {},
       isHolderNameVisible: true,
+      labelExpiredDate: labelExpiredDate,
     ));
+
     notifyListeners();
   }
 

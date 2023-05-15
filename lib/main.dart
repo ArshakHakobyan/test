@@ -6,7 +6,6 @@ import 'package:telcell_copy/pages/add_credit_card_page.dart';
 import 'pages/home_page.dart';
 
 void main() async {
-  
   runApp(const MyApp());
 }
 
@@ -27,7 +26,7 @@ class MyApp extends StatelessWidget {
               create: (context) => HomeScreenModel(),
               child: HomeScreen(),
             ),
-        '/credit_cards_page/bindbtn': (context) => const AddCard(),
+        '/credit_cards_page/bindbtn': (context) => AddCard(),
       },
       initialRoute: '/',
       //home: HomeScreen(),

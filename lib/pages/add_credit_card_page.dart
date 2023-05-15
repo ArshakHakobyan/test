@@ -4,23 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:telcell_copy/pageModels/add_credit_card_model.dart';
 import 'package:telcell_copy/widgets/balance_visibility.dart';
 
-class AddCard extends StatefulWidget {
-  const AddCard({super.key});
-  @override
-  State<AddCard> createState() {
-    return AddCardState();
-  }
-}
-
-class AddCardState extends State<AddCard> {
+// ignore: must_be_immutable
+class AddCard extends StatelessWidget {
   OutlineInputBorder? border;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  final bool _isActive = false;
-
-  // color generator function to set credit cards colors randomly
-
-// CreditCardForm  function handle
+  AddCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +71,14 @@ class AddCardState extends State<AddCard> {
                       return null;
                     },
                     cvvCode: cardData.cvvCode,
+                    cvvValidator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Type CVV';
+                      } else if (value.length > 3) {
+                        return 'Cvv number must contain 3 digits';
+                      }
+                      return null;
+                    },
                     onCreditCardModelChange: cardData.onCreditCardModelChange,
                     themeColor: Colors.black,
                     formKey: formKey,
@@ -166,17 +163,14 @@ class AddCardState extends State<AddCard> {
                 },
                 //Button Style
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.37,
-                    vertical: MediaQuery.of(context).size.height * 0.015,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(7),
-                  ),
-                  backgroundColor: _isActive == false
-                      ? const Color.fromRGBO(238, 111, 50, 1)
-                      : const Color.fromARGB(255, 124, 124, 124),
-                ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.37,
+                      vertical: MediaQuery.of(context).size.height * 0.015,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(7),
+                    ),
+                    backgroundColor: const Color.fromRGBO(238, 111, 50, 1)),
                 child: const Text('Submit'),
               ),
             ],

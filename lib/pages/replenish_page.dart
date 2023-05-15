@@ -17,7 +17,9 @@ class ReplenishPageState extends State<ReplenishPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  BalanceVisibility(),
+        title: BalanceVisibility(
+          isRouted: true,
+        ),
         backgroundColor: const Color.fromRGBO(238, 111, 50, 1),
       ),
       body: Column(

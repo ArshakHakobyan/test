@@ -29,7 +29,9 @@ class MyAccountPageState extends State<MyAccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  BalanceVisibility(),
+        title: BalanceVisibility(
+          isRouted: true,
+        ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(30),
           child: Ink(

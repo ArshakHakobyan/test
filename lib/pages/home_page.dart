@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
   List<Widget> pages = <Widget>[
     const WalletPage(),
     ChangeNotifierProvider(
-        create: (BuildContext context) => CardsPageModel(), child: CardsPage()),
+        create: (BuildContext context) => CardsPageModel(), child: const CardsPage()),
     const QrCodePage(),
     //const CryptoPage(),
     const ProfilePage(),

@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:telcell_copy/pageModels/add_credit_card_model.dart';
 import 'package:telcell_copy/widgets/balance_visibility.dart';
 import '../pageModels/credit_cards_page_model.dart';
 import '../widgets/icon_images.dart';
 import 'add_credit_card_page.dart';
-import 'package:flutter_credit_card/flutter_credit_card.dart';
 
 // ignore: must_be_immutable
 class CardsPage extends StatelessWidget {
-  List<CreditCardWidget> updatedCreditCards = [];
-
-  CardsPage({super.key});
+  const CardsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -80,9 +78,18 @@ class CardsPage extends StatelessWidget {
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const AddCard(),
+                        builder: (context) {
+                          return ChangeNotifierProvider(
+                              create: (BuildContext context) {
+                                //context.watch();
+                                return AddCreditCardModel();
+                              },
+                              child: const AddCard());
+                        },
                       ),
                     );
+                    // ignore: use_build_context_synchronously
+                    context.read<CardsPageModel>().getCreditCardData();
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(

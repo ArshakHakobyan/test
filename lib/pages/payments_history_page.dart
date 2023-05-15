@@ -328,6 +328,7 @@ class Terminal extends StatelessWidget {
     List<Map> mapsOfPaymentsTerminal =
         Provider.of<PaymentsHistoryPageModel>(context)
             .mapsOfPaymentsForTerminal;
+
     return Container(
       color: const Color.fromRGBO(240, 242, 244, 1),
       width: MediaQuery.of(context).size.width,

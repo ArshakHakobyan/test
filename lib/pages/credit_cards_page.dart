@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:telcell_copy/pageModels/add_credit_card_model.dart';
+import 'package:telcell_copy/page_models/add_credit_card_model.dart';
 import 'package:telcell_copy/widgets/balance_visibility.dart';
-import '../pageModels/credit_cards_page_model.dart';
+import '../page_models/credit_cards_page_model.dart';
 import '../widgets/icon_images.dart';
 import 'add_credit_card_page.dart';
 
@@ -54,42 +54,60 @@ class CardsPage extends StatelessWidget {
                 ),
               ),
               //Cards
-              context.watch<CardsPageModel>().creditCardsList.isEmpty
-                  ? Expanded(
+              Consumer<CardsPageModel>(
+                builder: (BuildContext context, value, Widget? child) {
+                  if (value.creditCardsList.isEmpty && value.showLoading) {
+                    // Show another widget when the list is empty and showLoading is true
+                    return const Expanded(
                       child: Center(
-                          child: Image(
-                        image: IconImages().bodyImage,
+                          child: CircularProgressIndicator(
+                        color: Color.fromRGBO(238, 111, 50, 1),
                       )),
-                    )
-                  : Column(
+                    );
+                  } else if (value.creditCardsList.isEmpty && value.showError) {
+                    return const Expanded(
+                      child: Center(
+                        child: Text(
+                          'An error occurred while loading data.\n\n                  Please try later ',
+                          style: TextStyle(fontSize: 20, color: Colors.grey),
+                        ),
+                      ),
+                    );
+                  } else if (value.creditCardsList.isEmpty) {
+                    return Expanded(
+                      child: Center(
+                        child: Image(
+                          image: IconImages().bodyImage,
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Column(
                       children: [
-                        Consumer<CardsPageModel>(
-                          builder:
-                              (BuildContext context, value, Widget? child) {
-                            return SizedBox(
-                              height: (kToolbarHeight +
-                                      kBottomNavigationBarHeight) *
+                        SizedBox(
+                          height:
+                              (kToolbarHeight + kBottomNavigationBarHeight) *
                                   1.9,
-                              child: ListView.builder(
-                                controller: value.scrollController,
-                                itemCount: value.creditCardsList.length,
-                                itemBuilder: (
-                                  BuildContext context,
-                                  int index,
-                                ) {
-                                  return SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.91,
-                                    child: value.creditCardsList[index],
-                                  );
-                                },
-                                scrollDirection: Axis.horizontal,
-                              ),
-                            );
-                          },
-                        )
+                          child: ListView.builder(
+                            controller: value.scrollController,
+                            itemCount: value.creditCardsList.length,
+                            itemBuilder: (
+                              BuildContext context,
+                              int index,
+                            ) {
+                              return SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.91,
+                                child: value.creditCardsList[index],
+                              );
+                            },
+                            scrollDirection: Axis.horizontal,
+                          ),
+                        ),
                       ],
-                    ),
+                    );
+                  }
+                },
+              ),
               //for Bind Card button addaptive position
               context.watch<CardsPageModel>().creditCardsList.isEmpty
                   ? const SizedBox()
@@ -113,7 +131,7 @@ class CardsPage extends StatelessWidget {
                     );
 
                     Timer(const Duration(seconds: 1), () {
-                      context.read<CardsPageModel>().getCreditCardData();
+                      context.read<CardsPageModel>().creditCardData();
                     });
                   },
                   style: ElevatedButton.styleFrom(

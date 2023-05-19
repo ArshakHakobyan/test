@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:telcell_copy/pageModels/raise_page_model.dart';
+import 'package:telcell_copy/page_models/raise_page_model.dart';
 import 'package:telcell_copy/pages/my_account_page.dart';
 import '../widgets/balance_visibility.dart';
 import 'package:telcell_copy/pages/credit_cards_page.dart';

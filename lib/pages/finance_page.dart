@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telcell_copy/widgets/balance_visibility.dart';
-import '../pageModels/finance_page_model.dart';
+import '../page_models/finance_page_model.dart';
 
 class FinancePage extends StatelessWidget {
   const FinancePage({super.key});

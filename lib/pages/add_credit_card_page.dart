@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:provider/provider.dart';
-import 'package:telcell_copy/pageModels/add_credit_card_model.dart';
+import 'package:telcell_copy/page_models/add_credit_card_model.dart';
 import 'package:telcell_copy/widgets/balance_visibility.dart';
 
 // ignore: must_be_immutable
@@ -138,7 +138,7 @@ class AddCard extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (formKey.currentState!.validate()) {
                     context.read<AddCreditCardModel>().addCreditCardData(
                           cardNumber:
@@ -149,13 +149,7 @@ class AddCard extends StatelessWidget {
                               context.read<AddCreditCardModel>().expiryDate,
                           cvvCode: context.read<AddCreditCardModel>().cvvCode,
                         );
-                    // DatabaseHelper.instance.insertDataToDatabase(
-                    //   id: DateTime.now().toString(), //Unique Id
-                    //   cardNumber: cardNumber,
-                    //   cardHolder: cardHolderName,
-                    //   expirationDate: expiryDate,
-                    //   // cvv
-                    // );
+
                     Navigator.pop(context, 'Route');
                   } else {
                     null;

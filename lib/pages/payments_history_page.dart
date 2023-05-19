@@ -4,7 +4,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 import 'package:telcell_copy/widgets/balance_visibility.dart';
 import 'package:telcell_copy/widgets/icon_images.dart';
-import '../pageModels/payments_hystory_page_model.dart';
+import '../page_models/payments_hystory_page_model.dart';
 
 // ignore: must_be_immutable
 class PaymentsHistoryPage extends StatelessWidget {

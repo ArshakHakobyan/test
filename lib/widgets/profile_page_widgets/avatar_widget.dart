@@ -6,7 +6,7 @@ import 'package:telcell_copy/pages/raise_page.dart';
 import 'package:telcell_copy/widgets/icon_images.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../pageModels/raise_page_model.dart';
+import '../../page_models/raise_page_model.dart';
 
 // ignore: must_be_immutable
 class Avatar extends StatefulWidget {

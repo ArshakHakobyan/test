@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:telcell_copy/pageModels/home_page_model.dart';
+import 'package:telcell_copy/page_models/home_page_model.dart';
 import 'package:telcell_copy/pages/add_credit_card_page.dart';
 import 'pages/home_page.dart';
 

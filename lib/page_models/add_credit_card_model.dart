@@ -1,8 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_model.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+// import 'dart:convert';
+// import 'package:http/http.dart' as http;
+import 'package:telcell_copy/api/payment_cards.dart';
 
 class AddCreditCardModel extends ChangeNotifier {
   String _cardNumber = '';
@@ -10,6 +11,7 @@ class AddCreditCardModel extends ChangeNotifier {
   String _cardHolderName = '';
   String _cvvCode = '';
   bool _isCvvFocused = false;
+  String postError = '';
 
   Color generateRandomColor() {
     List<Color> colors = [
@@ -71,15 +73,11 @@ class AddCreditCardModel extends ChangeNotifier {
   }
 
   void addCreditCard({required Map<String, String> creditCardData}) async {
-    final url =
-        Uri.parse('https://645f33f89d35038e2d1ec86e.mockapi.io/credit_cards');
-
-    final response = await http.post(url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(creditCardData));
-
-    if (response.statusCode == 201) {
-    } else {}
+    try {
+      await PaymentCards().postData(creditCardData);
+    } catch (e) {
+      postError = e.toString();
+    }
   }
 
   void onCreditCardModelChange(CreditCardModel? creditCardModel) {
@@ -95,4 +93,5 @@ class AddCreditCardModel extends ChangeNotifier {
   get cardHolderName => _cardHolderName;
   get cvvCode => _cvvCode;
   get isCvvFocused => _isCvvFocused;
+  
 }

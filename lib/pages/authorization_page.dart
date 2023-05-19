@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telcell_copy/pages/registratin_page.dart';
-import '../pageModels/authorization_page_model.dart';
+import '../page_models/authorization_page_model.dart';
 import '../widgets/icon_images.dart';
 
 class Authorization extends StatelessWidget {
